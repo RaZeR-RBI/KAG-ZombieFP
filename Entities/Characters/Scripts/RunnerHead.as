@@ -1,29 +1,68 @@
 // generic character head script
 
+// TODO: fix double includes properly, added the following line temporarily to fix include issues
+#include "PaletteSwap.as"
+#include "PixelOffsets.as"
+#include "RunnerTextures.as"
+#include "Accolades.as"
+
 const s32 NUM_HEADFRAMES = 4;
 const s32 NUM_UNIQUEHEADS = 30;
 const int FRAMES_WIDTH = 8 * NUM_HEADFRAMES;
 
-int getHeadFrame(CBlob@ blob, int headIndex)
+//handling Heads pack DLCs
+
+int getHeadsPackIndex(int headIndex)
 {
-	if(headIndex < NUM_UNIQUEHEADS)
+	if (headIndex > 255) {
+		if ((headIndex % 256) >= NUM_UNIQUEHEADS) {
+			return Maths::Min(getHeadsPackCount() - 1, Maths::Floor(headIndex / 256.0f));
+		}
+	}
+	return 0;
+}
+
+bool doTeamColour(int packIndex)
+{
+	switch (packIndex) {
+		case 1: //FOTW
+			return false;
+	}
+	//otherwise
+	return true;
+}
+
+bool doSkinColour(int packIndex)
+{
+	switch (packIndex) {
+		case 1: //FOTW
+			return false;
+	}
+	//otherwise
+	return true;
+}
+
+int getHeadFrame(CBlob@ blob, int headIndex, bool default_pack)
+{
+	if (headIndex < NUM_UNIQUEHEADS)
 	{
 		return headIndex * NUM_HEADFRAMES;
 	}
 
-	if(headIndex == 255 || headIndex == NUM_UNIQUEHEADS)
+	//special heads logic for default heads pack
+	if (default_pack && (headIndex == 255 || headIndex < NUM_UNIQUEHEADS))
 	{
 		CRules@ rules = getRules();
 		bool holidayhead = false;
-		if(rules !is null && rules.exists("holiday"))
+		if (rules !is null && rules.exists("holiday"))
 		{
 			const string HOLIDAY = rules.get_string("holiday");
-			if(HOLIDAY == "Halloween")
+			if (HOLIDAY == "Halloween")
 			{
 				headIndex = NUM_UNIQUEHEADS + 43;
 				holidayhead = true;
 			}
-			else if(HOLIDAY == "Christmas")
+			else if (HOLIDAY == "Christmas")
 			{
 				headIndex = NUM_UNIQUEHEADS + 61;
 				holidayhead = true;
@@ -31,59 +70,26 @@ int getHeadFrame(CBlob@ blob, int headIndex)
 		}
 
 		//if nothing special set
-		if(!holidayhead)
+		if (!holidayhead)
 		{
 			string config = blob.getConfig();
-			if(config == "builder")
+			if (config == "builder")
 			{
 				headIndex = NUM_UNIQUEHEADS;
 			}
-			else if(config == "knight")
+			else if (config == "knight")
 			{
 				headIndex = NUM_UNIQUEHEADS + 1;
 			}
-			else if(config == "archer")
+			else if (config == "archer")
 			{
 				headIndex = NUM_UNIQUEHEADS + 2;
 			}
-			else if(config == "crossbow")
-			{
-				headIndex = NUM_UNIQUEHEADS + 16;
-			}	
-			else if(config == "assassin")
-			{
-				headIndex = NUM_UNIQUEHEADS + 28;
-			}
-			else if(config == "pyromancer")
-			{
-				headIndex = NUM_UNIQUEHEADS + 37;
-			}
-			else if(config == "dragoon")
-			{
-				headIndex = NUM_UNIQUEHEADS + 50;
-			}
-			else if(config == "priest")
-			{
-				headIndex = NUM_UNIQUEHEADS + 40;
-			}
-			else if(config == "wizard")
-			{
-				headIndex = NUM_UNIQUEHEADS + 56;
-			}			
-			else if(config == "migrant")
+			else if (config == "migrant")
 			{
 				Random _r(blob.getNetworkID());
 				headIndex = 69 + _r.NextRanged(2); //head scarf or old
 			}
-			else if(config == "migrantbot")
-			{
-				Random _r(blob.getNetworkID());
-				headIndex = 69 + _r.NextRanged(2); //head scarf or old
-			}	
-			else if(config == "archerbot")
-			{
-				headIndex = NUM_UNIQUEHEADS + 2;
-			}			
 			else
 			{
 				// default
@@ -96,21 +102,71 @@ int getHeadFrame(CBlob@ blob, int headIndex)
 	        (blob.getSexNum() == 0 ? 0 : 1)) * NUM_HEADFRAMES;
 }
 
-CSpriteLayer@ LoadHead(CSprite@ this, u8 headIndex)
+string getHeadTexture(int headIndex)
 {
-	this.RemoveSpriteLayer("head");
-	// add head
-	string texname = "Entities/Characters/Sprites/Heads.png";
-	CSpriteLayer@ head = this.addSpriteLayer("head", texname, 16, 16,
-	                     this.getBlob().getTeamNum(),
-	                     this.getBlob().getSkinNum());
+	return getHeadsPackByIndex(getHeadsPackIndex(headIndex)).filename;
+}
+
+void onPlayerInfoChanged(CSprite@ this)
+{
+	LoadHead(this, this.getBlob().getHeadNum());
+}
+
+CSpriteLayer@ LoadHead(CSprite@ this, int headIndex)
+{
 	CBlob@ blob = this.getBlob();
+	CPlayer@ player = blob.getPlayer();
 
-	// set defaults
-	s32 headFrame = getHeadFrame(blob, headIndex);
+	// strip old head
+	this.RemoveSpriteLayer("head");
 
+	// get dlc pack info
+	int headsPackIndex = getHeadsPackIndex(headIndex);
+	HeadsPack@ pack = getHeadsPackByIndex(headsPackIndex);
+	string texture_file = pack.filename;
 
-	blob.set_s32("head index", headFrame);
+	bool override_frame = false;
+
+	//get the head index relative to the pack index (without unique heads counting)
+	int headIndexInPack = (headIndex - NUM_UNIQUEHEADS) - (headsPackIndex * 256);
+
+	//(has default head set)
+	bool defaultHead = (headIndex == 255 || headIndexInPack < 0 || headIndexInPack >= pack.count);
+	if (defaultHead)
+	{
+		//accolade custom head handling
+		//todo: consider pulling other custom head stuff out to here
+		if (player !is null && !player.isBot())
+		{
+			Accolades@ acc = getPlayerAccolades(player.getUsername());
+			if (acc.hasCustomHead())
+			{
+				texture_file = acc.customHeadTexture;
+				headIndex = acc.customHeadIndex;
+				headsPackIndex = 0;
+				override_frame = true;
+			}
+		}
+	}
+	else
+	{
+		//not default head; do not use accolades data
+	}
+
+	int team = doTeamColour(headsPackIndex) ? blob.getTeamNum() : 0;
+	int skin = doSkinColour(headsPackIndex) ? blob.getSkinNum() : 0;
+
+	//add new head
+	CSpriteLayer@ head = this.addSpriteLayer("head", texture_file, 16, 16, team, skin);
+
+	//
+	headIndex = headIndex % 256; // wrap DLC heads into "pack space"
+
+	// figure out head frame
+	s32 headFrame = override_frame ?
+		(headIndex * NUM_HEADFRAMES) :
+		getHeadFrame(blob, headIndex, headsPackIndex == 0);
+
 	if (head !is null)
 	{
 		Animation@ anim = head.addAnimation("default", 0, false);
@@ -121,6 +177,13 @@ CSpriteLayer@ LoadHead(CSprite@ this, u8 headIndex)
 
 		head.SetFacingLeft(blob.isFacingLeft());
 	}
+
+	//setup gib properties
+	blob.set_s32("head index", headFrame);
+	blob.set_string("head texture", texture_file);
+	blob.set_s32("head team", team);
+	blob.set_s32("head skin", skin);
+
 	return head;
 }
 
@@ -141,10 +204,12 @@ void onGib(CSprite@ this)
 		Vec2f pos = blob.getPosition();
 		Vec2f vel = blob.getVelocity();
 		f32 hp = Maths::Min(Maths::Abs(blob.getHealth()), 2.0f) + 1.5;
-		makeGibParticle("Entities/Characters/Sprites/Heads.png",
-		                pos, vel + getRandomVelocity(90, hp , 30),
-		                framex, framey, Vec2f(16, 16),
-		                2.0f, 20, "/BodyGibFall", blob.getTeamNum());
+		makeGibParticle(
+			blob.get_string("head texture"),
+			pos, vel + getRandomVelocity(90, hp , 30),
+			framex, framey, Vec2f(16, 16),
+			2.0f, 20, "/BodyGibFall", blob.getTeamNum()
+		);
 	}
 }
 
@@ -177,54 +242,53 @@ void onTick(CSprite@ this)
 
 	if (head !is null)
 	{
+		Vec2f offset;
+
+		// pixeloffset from script
 		// set the head offset and Z value according to the pink/yellow pixels
-		PixelOffset @po = getDriver().getPixelOffset(this.getFilename(), this.getFrame());
+		int layer = 0;
+		Vec2f head_offset = getHeadOffset(blob, -1, layer);
 
-		if (po !is null)
+		// behind, in front or not drawn
+		if (layer == 0)
 		{
-			// behind, in front or not drawn
-			if (po.level == 0)
-			{
-				head.SetVisible(false);
-			}
-			else
-			{
-				head.SetVisible(this.isVisible());
-				head.SetRelativeZ(po.level * 0.25f);
-			}
-
-			// set the proper offset
-			Vec2f headoffset(this.getFrameWidth() / 2, -this.getFrameHeight() / 2);
-			headoffset += this.getOffset();
-			headoffset += Vec2f(-po.x, po.y);
-			headoffset += Vec2f(0, -2);
-			head.SetOffset(headoffset);
-
-			if (blob.hasTag("dead") || blob.hasTag("dead head"))
-			{
-				head.animation.frame = 2;
-
-				// sparkle blood if cut throat
-				if (getNet().isClient() && getGameTime() % 2 == 0 && blob.hasTag("cutthroat"))
-				{
-					Vec2f vel = getRandomVelocity(90.0f, 1.3f * 0.1f * XORRandom(40), 2.0f);
-					ParticleBlood(blob.getPosition() + Vec2f(this.isFacingLeft() ? headoffset.x : -headoffset.x, headoffset.y), vel, SColor(255, 126, 0, 0));
-					if (XORRandom(100) == 0)
-						blob.Untag("cutthroat");
-				}
-			}
-			else if (blob.hasTag("attack head"))
-			{
-				head.animation.frame = 1;
-			}
-			else
-			{
-				head.animation.frame = 0;
-			}
+			head.SetVisible(false);
 		}
 		else
 		{
-			head.SetVisible(false);
+			head.SetVisible(this.isVisible());
+			head.SetRelativeZ(layer * 0.25f);
+		}
+
+		offset = head_offset;
+
+		// set the proper offset
+		Vec2f headoffset(this.getFrameWidth() / 2, -this.getFrameHeight() / 2);
+		headoffset += this.getOffset();
+		headoffset += Vec2f(-offset.x, offset.y);
+		headoffset += Vec2f(0, -2);
+		head.SetOffset(headoffset);
+
+		if (blob.hasTag("dead") || blob.hasTag("dead head"))
+		{
+			head.animation.frame = 2;
+
+			// sparkle blood if cut throat
+			if (getNet().isClient() && getGameTime() % 2 == 0 && blob.hasTag("cutthroat"))
+			{
+				Vec2f vel = getRandomVelocity(90.0f, 1.3f * 0.1f * XORRandom(40), 2.0f);
+				ParticleBlood(blob.getPosition() + Vec2f(this.isFacingLeft() ? headoffset.x : -headoffset.x, headoffset.y), vel, SColor(255, 126, 0, 0));
+				if (XORRandom(100) == 0)
+					blob.Untag("cutthroat");
+			}
+		}
+		else if (blob.hasTag("attack head"))
+		{
+			head.animation.frame = 1;
+		}
+		else
+		{
+			head.animation.frame = 0;
 		}
 	}
 }
