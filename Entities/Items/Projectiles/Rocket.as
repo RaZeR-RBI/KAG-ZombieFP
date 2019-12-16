@@ -19,6 +19,10 @@ void onInit( CBlob@ this )
     this.set( "tileOffsets", tileOffsets );
 	this.Tag("projectile");
 
+    this.Tag("exploding");
+    this.set_f32("explosive_radius", 32.0f);
+    this.set_f32("explosive_damage", 20.0f);
+
 	this.getSprite().SetFrame( 0 );
 
 	this.getSprite().SetFacingLeft( !this.getSprite().isFacingLeft() ); // ?  it turns sides when setting frame
@@ -136,8 +140,8 @@ bool DoExplosion(CBlob@ this, Vec2f velocity)
 		
 		//makeLargeExplosionParticle(this.getPosition());
 		
-		Explode ( this, 2.0f, 2.0f );
-		LinearExplosion( this, velocity, 24.0f, 4.0f, 2, 4.0f, Hitters::bomb );
+		//Explode ( this, 2.0f, 2.0f );
+		//LinearExplosion( this, velocity, 24.0f, 4.0f, 2, 4.0f, Hitters::bomb );
 		this.Tag("dead");
 		this.server_Die();
 		this.getSprite().Gib();
