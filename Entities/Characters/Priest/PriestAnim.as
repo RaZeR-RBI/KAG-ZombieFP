@@ -3,8 +3,22 @@
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
 #include "Knocked.as";
+#include "RunnerTextures.as";
 
+void onInit(CSprite@ this)
+{
+	LoadSprites(this);
+}
 
+void onPlayerInfoChanged(CSprite@ this)
+{
+	LoadSprites(this);
+}
+
+void LoadSprites(CSprite@ this)
+{
+	ensureCorrectRunnerTexture(this, "priest", "Priest");
+}
 
 void onTick( CSprite@ this )
 {
