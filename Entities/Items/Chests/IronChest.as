@@ -43,7 +43,7 @@ void Open(CBlob@ this)
     for (int i = 0 ; i < loot.length; i++)
     {
         Loot @l = loot[i];
-        print(l.name);
+        
         const ::int rarernd = XORRandom(l.rarity) + 1;
         if (getNet().isServer() && (rarernd == l.rarity || l.rarity == 0))
         {
