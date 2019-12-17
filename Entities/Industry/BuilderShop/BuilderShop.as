@@ -37,11 +37,12 @@ void onInit(CBlob@ this)
 		AddRequirement(s.requirements, "blob", "mat_stone", "Stone", COST_STONE_DRILL);
 		AddRequirement(s.requirements, "coin", "", "Coins", 15);
 	}
-	{
-		ShopItem@ s = addShopItem(this, "Chainsaw", "$chainsaw$", "chainsaw", "A modified drill, meant specially for tree chopping.", false);
-		AddRequirement(s.requirements, "blob", "mat_stone", "Stone", COST_STONE_DRILL);
-		AddRequirement(s.requirements, "coin", "", "Coins", 15 );
-	}
+	// TODO FIXME: Fix the chainsaw not destroying anything
+	//{
+	//	ShopItem@ s = addShopItem(this, "Chainsaw", "$chainsaw$", "chainsaw", "A modified drill, meant specially for tree chopping.", false);
+	//	AddRequirement(s.requirements, "blob", "mat_stone", "Stone", COST_STONE_DRILL);
+	//	AddRequirement(s.requirements, "coin", "", "Coins", 15 );
+	//}
 	{
 		ShopItem@ s = addShopItem(this, "Trampoline", "$trampoline$", "trampoline", descriptions[30], false);
 		AddRequirement(s.requirements, "blob", "mat_wood", "Wood", COST_WOOD_TRAMPOLINE);

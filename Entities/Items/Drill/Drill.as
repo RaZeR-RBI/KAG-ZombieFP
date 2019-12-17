@@ -2,6 +2,8 @@
 
 #include "Hitters.as";
 #include "BuilderHittable.as";
+#include "ParticleSparks.as";
+#include "MaterialCommon.as";
 
 const f32 speed_thresh = 2.4f;
 const f32 speed_hard_thresh = 2.6f;
@@ -9,15 +11,21 @@ const f32 speed_hard_thresh = 2.6f;
 const string buzz_prop = "drill timer";
 
 const string heat_prop = "drill heat";
-const u8 heat_max = 250;
+const u8 heat_max = 150;
 
-const u8 heat_add = 6;
+const string last_drill_prop = "drill last active";
+
+const u8 heat_add = 4;
 const u8 heat_add_constructed = 2;
 const u8 heat_add_blob = heat_add * 2;
 const u8 heat_cool_amount = 2;
 
-const u8 heat_cooldown_time = 10;
+const u8 heat_cooldown_time = 5;
 const u8 heat_cooldown_time_water = u8(heat_cooldown_time / 3);
+
+const f32 max_heatbar_view_range = 65;
+
+const bool show_heatbar_when_idle = false;
 
 const string required_class = "builder";
 
@@ -107,17 +115,24 @@ void makeSteamPuff(CBlob@ this, const f32 velocity = 1.0f, const int smallpartic
 
 void onInit(CBlob@ this)
 {
-	AttachmentPoint@ ap = this.getAttachments().getAttachmentPointByName("PICKUP");
+	//todo: some tag-based keys to take interference (doesn't work on net atm)
+	/*AttachmentPoint@ ap = this.getAttachments().getAttachmentPointByName("PICKUP");
 	if (ap !is null)
 	{
 		ap.SetKeysToTake(key_action1 | key_action2 | key_action3);
-	}
+	}*/
 
 	this.set_u32("hittime", 0);
 	this.Tag("place45");
 	this.set_s8("place45 distance", 1);
 	this.Tag("place45 perp");
 	this.set_u8(heat_prop, 0);
+	this.set_u16("showHeatTo", 0);
+
+	AddIconToken("$opaque_heatbar$", "Entities/Industry/Drill/HeatBar.png", Vec2f(24, 6), 0);
+	AddIconToken("$transparent_heatbar$", "Entities/Industry/Drill/HeatBar.png", Vec2f(24, 6), 1);
+
+	this.set_u32(last_drill_prop, 0);
 }
 
 void onTick(CBlob@ this)
@@ -175,9 +190,9 @@ void onTick(CBlob@ this)
 			sprite.PlaySound("DrillOverheat.ogg");
 		}
 
-		if (holder.getName() == required_class)
+		if (holder.getName() == required_class || sv_gamemode == "TDM")
 		{
-			if (!point.isKeyPressed(key_action1) || holder.get_u8("knocked") > 0)
+			if (!holder.isKeyPressed(key_action1) || holder.get_u8("knocked") > 0)
 			{
 				this.set_bool(buzz_prop, false);
 				return;
@@ -202,9 +217,16 @@ void onTick(CBlob@ this)
 			}
 
 			const u8 delay_amount = inwater ? 20 : 8;
-			bool skip = ((gametime + this.getNetworkID()) % delay_amount) != 0;
+			bool skip = (gametime < this.get_u32(last_drill_prop) + delay_amount);
 
-			if (skip) return;
+			if (skip)
+			{
+				return;
+			}
+			else
+			{
+				this.set_u32(last_drill_prop, gametime); // update last drill time
+			}
 
 			// delay drill
 			{
@@ -216,7 +238,6 @@ void onTick(CBlob@ this)
 				Vec2f attackVel = direction * attack_distance;
 
 				const f32 distance = 20.0f;
-				const f32 attack_dam = 1.0f;
 
 				bool hitsomething = false;
 				bool hitblob = false;
@@ -225,11 +246,12 @@ void onTick(CBlob@ this)
 				if (map !is null)
 				{
 					HitInfo@[] hitInfos;
-					if (map.getHitInfosFromArc((this.getPosition() - attackVel), -attackVel.Angle(), 30, distance, this, false, @hitInfos))
+					if (map.getHitInfosFromArc((this.getPosition() - attackVel), -attackVel.Angle(), 30, distance, this, true, @hitInfos))
 					{
 						bool hit_ground = false;
 						for (uint i = 0; i < hitInfos.length; i++)
 						{
+							f32 attack_dam = 1.0f;
 							HitInfo@ hi = hitInfos[i];
 							bool hit_constructed = false;
 							if (hi.blob !is null) // blob
@@ -247,11 +269,21 @@ void onTick(CBlob@ this)
 									continue;
 								}
 
-								holder.server_Hit(hi.blob, hi.hitpos, attackVel, attack_dam, Hitters::drill);
-								if (int(heat) > heat_max * 0.5f)
+								//
+
+								if (getNet().isServer())
 								{
-									holder.server_Hit(hi.blob, hi.hitpos, attackVel, 1.0f, Hitters::drill);   //extra burn damage
+									// Deal extra damage if hot
+									if (int(heat) > heat_max * 0.5f)
+									{
+										attack_dam += 1.0f;
+									}
+
+									this.server_Hit(hi.blob, hi.hitpos, attackVel, attack_dam, Hitters::drill);
+
+									Material::fromBlob(holder, hi.blob, attack_dam);
 								}
+
 								hitsomething = true;
 								hitblob = true;
 							}
@@ -261,7 +293,29 @@ void onTick(CBlob@ this)
 									continue;
 
 								TileType tile = hi.tile;
-								this.server_HitMap(hi.hitpos, attackVel, 1.0f, Hitters::drill);
+
+								if (getNet().isServer())
+								{
+									for (uint i = 0; i < 2; i++)
+									{
+										//tile destroyed last hit
+										if (!map.isTileSolid(map.getTile(hi.hitpos)))
+											break;
+
+										map.server_DestroyTile(hi.hitpos, 1.0f, this);
+										Material::fromTile(holder, tile, 1.0f);
+									}
+								}
+
+								if (getNet().isClient())
+								{
+									if (map.isTileBedrock(tile))
+									{
+										sprite.PlaySound("/metal_stone.ogg");
+										sparks(hi.hitpos, attackVel.Angle(), 1.0f);
+									}
+								}
+
 								//only counts as hitting something if its not mats, so you can drill out veins quickly
 								if (!map.isTileStone(tile) || !map.isTileGold(tile))
 								{
@@ -307,7 +361,7 @@ void onTick(CBlob@ this)
 			if (getNet().isClient() &&
 			        holder.isMyPlayer())
 			{
-				if (point.isKeyJustPressed(key_action1))
+				if (holder.isKeyJustPressed(key_action1))
 				{
 					Sound::Play("Entities/Characters/Sounds/NoAmmo.ogg");
 				}
@@ -343,17 +397,72 @@ f32 onHit(CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, CBlob@ hitt
 	return damage;
 }
 
-void onHitMap(CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, u8 customData)
-{
-	getMap().server_DestroyTile(worldPoint, damage, this);
-}
-
 void onAttach(CBlob@ this, CBlob@ attached, AttachmentPoint @attachedPoint)
 {
 	this.getCurrentScript().runFlags &= ~Script::tick_not_sleeping;
+	CPlayer@ player = attached.getPlayer();
+	if (player !is null)
+		this.set_u16("showHeatTo", player.getNetworkID());
+}
+
+void onDetach(CBlob@ this, CBlob@ detached, AttachmentPoint @attachedPoint)
+{
+	this.set_u16("showHeatTo", 0);
 }
 
 void onThisAddToInventory(CBlob@ this, CBlob@ blob)
 {
 	this.getSprite().SetEmitSoundPaused(true);
+}
+
+void onRender(CSprite@ this)
+{
+	CPlayer@ local = getLocalPlayer();
+	CBlob@ localBlob = local.getBlob();
+
+	if (local is null || localBlob is null)
+		return;
+
+	CBlob@ blob = this.getBlob();
+	u16 holderID = blob.get_u16("showHeatTo");
+
+	CPlayer@ holder = holderID == 0 ? null : getPlayerByNetworkId(holderID);
+	if (holder is null){return;}
+
+	CBlob@ holderBlob = holder.getBlob();
+	if (holderBlob is null){return;}
+
+	if (holderBlob.getName() != required_class && sv_gamemode != "TDM"){return;}
+	
+	Vec2f mousePos = getControls().getMouseWorldPos();
+	Vec2f blobPos = blob.getPosition();
+	Vec2f localPos = localBlob.getPosition();
+
+	bool inRange = (blobPos - localPos).getLength() < max_heatbar_view_range;
+	bool hover = (mousePos - blobPos).getLength() < blob.getRadius() * 1.50f;
+	
+	if ((hover && inRange) || (holder !is null && holder.isLocal()))
+	{
+		int transparency = 255;
+		u8 heat = blob.get_u8(heat_prop);
+		f32 percentage = Maths::Min(1.0, f32(heat) / f32(heat_max));
+
+		Vec2f pos = blob.getScreenPos() + Vec2f(-22, 16);
+		Vec2f dimension = Vec2f(42, 4);
+		Vec2f bar = Vec2f(pos.x + (dimension.x * percentage), pos.y + dimension.y);
+
+		if ((heat > 0 && show_heatbar_when_idle) || (blob.get_bool(buzz_prop)))
+		{
+			GUI::DrawIconByName("$opaque_heatbar$", pos);
+		}
+		else
+		{
+			transparency = 168;
+			GUI::DrawIconByName("$transparent_heatbar$", pos);
+		}
+
+		GUI::DrawRectangle(pos + Vec2f(4, 4), bar + Vec2f(4, 4), SColor(transparency, 59, 20, 6));
+		GUI::DrawRectangle(pos + Vec2f(6, 6), bar + Vec2f(2, 4), SColor(transparency, 148, 27, 27));
+		GUI::DrawRectangle(pos + Vec2f(6, 6), bar + Vec2f(2, 2), SColor(transparency, 183, 51, 51));
+	}
 }
