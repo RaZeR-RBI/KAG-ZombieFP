@@ -17,7 +17,7 @@ void onInit(CBlob@ this)
 		infos.push_back(i);
 	}
 	{
-		TargetInfo i("ally", 0.9f, true);
+		TargetInfo i("ally", 0.1f, true);
 		infos.push_back(i);
 	}		
 	{

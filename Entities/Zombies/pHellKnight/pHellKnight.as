@@ -25,10 +25,6 @@ void onInit(CBlob@ this)
 		infos.push_back(i);
 	}
 	{
-		TargetInfo i("ally", 0.9f, true);
-		infos.push_back(i);
-	}			
-	{
 		TargetInfo i("stone_door", 0.8f);
 		infos.push_back(i);
 	}
@@ -56,6 +52,10 @@ void onInit(CBlob@ this)
 		TargetInfo i("mounted_bazooka", 0.6f);
 		infos.push_back(i);		
 	}		
+	{
+		TargetInfo i("ally", 0.5f, true);
+		infos.push_back(i);
+	}			
 
 	//for EatOthers
 	string[] tags = {"dead"};
