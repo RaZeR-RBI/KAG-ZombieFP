@@ -18,32 +18,19 @@ void Config(ZombiesCore@ this)
 	}
 	ConfigFile cfg = ConfigFile( configstr );
 	
-	//how long for the game to play out?
-    s32 gameDurationMinutes = cfg.read_s32("game_time",-1);
-    if (gameDurationMinutes <= 0)
-    {
-		this.gameDuration = 0;
-		getRules().set_bool("no timer", true);
-	}
-    else
-    {
-		this.gameDuration = (getTicksASecond() * 60 * gameDurationMinutes);
-	}
+	// remove game time limit
+	this.gameDuration = 0;
+	getRules().set_bool("no timer", true);
 	
-    bool destroy_dirt = cfg.read_bool("destroy_dirt",true);
-	getRules().set_bool("destroy_dirt", destroy_dirt);
 	bool grave_spawn = cfg.read_bool("grave_spawn",false);
-	
 	s32 max_zombies = cfg.read_s32("max_zombies",50);
-	if (max_zombies<50) max_zombies=50;
 	s32 max_pzombies = cfg.read_s32("max_pzombies",25);
-	if (max_pzombies<25) max_pzombies=25;
-	s32 max_migrantbots = cfg.read_s32("max_migrantbots",5);
-	if (max_migrantbots<2) max_migrantbots=2;	
+	s32 max_migrantbots = cfg.read_s32("max_migrantbots",2);
 	getRules().set_s32("max_zombies", max_zombies);
 	getRules().set_s32("max_pzombies", max_pzombies);
 	getRules().set_s32("max_migrantbots", max_migrantbots);
 	getRules().set_bool("grave_spawn", grave_spawn);
+	getRules().set_s32("days_to_survive", cfg.read_s32("days_to_survive", 15));
     //spawn after death time 
     this.spawnTime = (getTicksASecond() * cfg.read_s32("spawn_time", 30));
 	
@@ -93,7 +80,7 @@ shared class ZombiesSpawns : RespawnSystem
 		if (getRules().isMatchRunning())
 		{
 			if (everyone_dead == total_count && total_count!=0) getRules().set_bool("everyones_dead",true); 
-			if (getGameTime() % (10*getTicksASecond()) == 0) warn("ED:"+everyone_dead+" TC:"+total_count);
+			// if (getGameTime() % (10*getTicksASecond()) == 0) warn("ED:"+everyone_dead+" TC:"+total_count);
 		}
     }
     
@@ -309,7 +296,6 @@ shared class ZombiesSpawns : RespawnSystem
 			int day_cycle = getRules().daycycle_speed*60;
 			int timeElapsed = ((getGameTime()-gamestart)/getTicksASecond()) % day_cycle;
 			tickspawndelay = (day_cycle - timeElapsed)*getTicksASecond();
-			warn("DC: "+day_cycle+" TE:"+timeElapsed);
 			if (timeElapsed<30) tickspawndelay=0;
 		}
 		
@@ -394,58 +380,58 @@ shared class ZombiesCore : RulesCore
 		int max_pzombies = rules.get_s32("max_pzombies");
 		int num_pzombies = rules.get_s32("num_pzombies");
 		int max_migrantbots = rules.get_s32("max_migrantbots");
-		int num_migrantbots = rules.get_s32("num_migrantbots");		
+		int num_migrantbots = rules.get_s32("num_migrantbots");
 		int gamestart = rules.get_s32("gamestart");
+
 		int timeElapsed = getGameTime()-gamestart;
 		float difficulty = 1.7*(getGameTime()-gamestart)/getTicksASecond()/day_cycle; //default 2.0
 		float actdiff = 3.7*((getGameTime()-gamestart)/getTicksASecond()/day_cycle); //default 4.0
 		int dayNumber = ((getGameTime()-gamestart)/getTicksASecond()/day_cycle)+1;
-		int num_zombiePortals = rules.get_s32("num_zombiePortals"); //newstart portals
+
+		// update zombie portal and survivor player count
 		CBlob@[] zombiePortal_blobs;
-			getBlobsByTag("ZP", @zombiePortal_blobs );
-			num_zombiePortals = zombiePortal_blobs.length;
-			rules.set_s32("num_zombiePortals", num_zombiePortals); //newend portals
-		int num_survivors = rules.get_s32("num_survivors"); //newstart survivors
+		getBlobsByTag("ZP", @zombiePortal_blobs );
+		rules.set_s32("num_zombiePortals", zombiePortal_blobs.length);
+
 		CBlob@[] survivors_blobs;
-			getBlobsByTag("survivorplayer", @survivors_blobs );
-			num_survivors = survivors_blobs.length;
-			rules.set_s32("num_survivors", num_survivors); //newend	 survivors		
+		getBlobsByTag("survivorplayer", @survivors_blobs );
+		rules.set_s32("num_survivors", survivors_blobs.length);
+
 		if (actdiff>13) { actdiff=13; difficulty=difficulty-1.0; } else { difficulty=1.0; } //default actdiff>9
 		
-		if (rules.isWarmup() && timeElapsed>getTicksASecond()*30) { rules.SetCurrentState(GAME); warn("TE:"+timeElapsed); }
+		if (rules.isWarmup() && timeElapsed>getTicksASecond()*30) { rules.SetCurrentState(GAME); }
 		rules.set_f32("difficulty",difficulty/3.2); //default 3.0
 		int intdif = difficulty;
 		if (intdif<=0) intdif=1;
 		int spawnRate = getTicksASecond() * (6-(difficulty/2.2)); //default 2.0
-		int extra_zombies = 0;
-		int extra_pzombies = 0;
-		int extra_migrantbots = 0;
-		if (dayNumber > 10) extra_zombies=(dayNumber-10)*5;
-		if (extra_zombies>max_zombies-50) extra_zombies=max_zombies-50; //default 100
-		if (extra_pzombies>max_pzombies-25) extra_pzombies=max_pzombies-25;
-		if (extra_migrantbots>max_migrantbots-2) extra_migrantbots=max_migrantbots-2; //default 100
 		if (spawnRate<8) spawnRate=8;
 		int wraiteRate = 2 + (intdif/4);
-		if (getGameTime() % 600 == 0)
+
+		// update active mobs count
+		if (getGameTime() % 300 == 0)
 		{
+			// normal zombies
 			CBlob@[] zombie_blobs;
 			getBlobsByTag("zombie", @zombie_blobs );
 			num_zombies = zombie_blobs.length;
 			rules.set_s32("num_zombies",num_zombies);
-			printf("Zombies: "+num_zombies+" Extra: "+extra_zombies);
+
+			// zombies spawned from portals
 			CBlob@[] pzombie_blobs;
 			getBlobsByTag("pzombie", @pzombie_blobs );
 			num_pzombies = pzombie_blobs.length;
 			rules.set_s32("num_pzombies",num_pzombies);
-			printf("Portal Zombies: "+num_pzombies+" Extra: "+extra_pzombies);
+
+			// migrant bots
 			CBlob@[] migrantbot_blobs;
 			getBlobsByTag("migrantbot", @migrantbot_blobs );
 			num_migrantbots = migrantbot_blobs.length;
 			rules.set_s32("num_migrantbots",num_migrantbots);
-			printf("Migrants: "+num_migrantbots+" Extra: "+extra_migrantbots);			
+
+			printf("Zombies: " + num_zombies + ", Portal Zombies: " + num_pzombies + ", Migrants: " + num_migrantbots);
 		}
 			
-	    if (getGameTime() % (spawnRate) == 0 && num_zombies<100+extra_zombies)
+	    if (getGameTime() % (spawnRate) == 0 && num_zombies<max_zombies)
         {
 			
 			CMap@ map = getMap();
@@ -621,6 +607,7 @@ shared class ZombiesCore : RulesCore
         int gamestart = rules.get_s32("gamestart");	
         int num_zombiePortals = rules.get_s32("num_zombiePortals");
 		int num_survivors = rules.get_s32("num_survivors");
+		int days_to_survive = rules.get_s32("days_to_survive");
 		int day_cycle = getRules().daycycle_speed*60;			
 		int dayNumber = ((getGameTime()-gamestart)/getTicksASecond()/day_cycle)+1;
 		/*if(getRules().get_bool("everyones_dead")) 
@@ -636,11 +623,11 @@ shared class ZombiesCore : RulesCore
 			rules.SetCurrentState(GAME_OVER);
 			rules.SetGlobalMessage("No survivors or migrants are left. You died on day "+ dayNumber+".");
 		}		
-		else if(dayNumber == 16)
+		else if(days_to_survive > 0 && dayNumber >= days_to_survive + 1)
 		{
 			rules.SetTeamWon(0);
 			rules.SetCurrentState(GAME_OVER);
-			rules.SetGlobalMessage("You survived for 15 days!");
+			rules.SetGlobalMessage("You survived! Congratulations!");
 		}	
 		/*else if(num_zombiePortals == 0) //check if you want to win by destroying all Zombie Portals
 		{
