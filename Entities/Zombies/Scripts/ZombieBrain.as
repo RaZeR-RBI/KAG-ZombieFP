@@ -72,12 +72,17 @@ void onTick( CBrain@ this )
 
 bool ShouldLoseTarget( CBlob@ blob, CBlob@ target )
 {
+	bool result = false;
 	if (target.hasTag("dead"))
-		return true;
+		result = true;
 	else if(getDistanceBetween(target.getPosition(), blob.getPosition()) > blob.get_f32(target_searchrad_property))
-		return true;
+		result = true;
 	else
-	    return !isTargetVisible(blob, target) && XORRandom(30) == 0;
+	    result = !isTargetVisible(blob, target) && XORRandom(30) == 0;
+
+	if (result && blob.hasTag("is_stuck"))
+		blob.Untag("is_stuck");
+	return result;
 }
 
 void GoSomewhere( CBrain@ this, CBlob@ blob )
@@ -110,10 +115,50 @@ void GoSomewhere( CBrain@ this, CBlob@ blob )
 void FindTarget( CBrain@ this, CBlob@ blob, f32 radius )
 {
 	CBlob@ target = GetBestTarget(this, blob, radius);
-	if    (target !is null)
+	if (target !is null)
 	{
 		this.SetTarget(target);
 	}
+}
+
+CBlob@ GetClosestVisibleTarget( CBrain@ this, CBlob@ blob, f32 radius )
+{
+	if (blob.hasTag("is_stuck"))
+		return GetClosestVisibleTarget(this, blob, radius);
+
+	CBlob@[] nearBlobs;
+	blob.getMap().getBlobsInRadius( blob.getPosition(), radius, @nearBlobs );
+
+	CBlob@ best_candidate;
+	f32 closest_dist = 999999.9f;
+	bool visible = false;
+	for(int step = 0; step < nearBlobs.length; ++step)
+	{
+		CBlob@ candidate = nearBlobs[step];
+		if    (candidate is null) break;
+
+		if (!candidate.hasTag("dead"))
+		{
+			if (isTarget(blob, candidate))
+			{
+				bool seeThroughWalls = false;
+				bool is_visible = isTargetVisible(blob, candidate);
+
+				f32 dist = getDistanceBetween(candidate.getPosition(), blob.getPosition());
+				if (dist < closest_dist && visible ? is_visible : (seeThroughWalls ? true : is_visible))
+				{
+					if(!is_visible && XORRandom(30) > 3)
+					    continue;
+
+					@best_candidate = candidate;
+					closest_dist = dist;
+					visible = is_visible;
+					break;
+				}
+			}
+		}
+	}
+	return best_candidate;
 }
 
 CBlob@ GetBestTarget( CBrain@ this, CBlob@ blob, f32 radius )

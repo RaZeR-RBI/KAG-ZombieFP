@@ -8,7 +8,7 @@ void onInit(CBlob@ this)
 		 this.set_u8("attack frequency", 30);
 	
 	if (!this.exists("attack distance"))
-	     this.set_f32("attack distance", 0.5f);
+	     this.set_f32("attack distance", 2.5f);
 	     
 	if (!this.exists("attack damage"))
 		 this.set_f32("attack damage", 1.0f);
@@ -65,6 +65,7 @@ void HitTarget( CBlob@ this, CBlob@ target )
 	
 	this.server_Hit( target, target.getPosition(), hitvel, this.get_f32("attack damage"), this.get_u8("attack hitter"), true);
 	this.set_u32("next_attack", getGameTime() + this.get_u8("attack frequency"));
+	this.set_u32("last_hit_time", getGameTime());
 }
 
 void onHitBlob( CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, CBlob@ hitBlob, u8 customData )
