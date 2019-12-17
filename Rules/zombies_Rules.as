@@ -34,11 +34,11 @@ void Config(ZombiesCore@ this)
 	getRules().set_bool("destroy_dirt", destroy_dirt);
 	bool grave_spawn = cfg.read_bool("grave_spawn",false);
 	
-	s32 max_zombies = cfg.read_s32("game_time",125);
+	s32 max_zombies = cfg.read_s32("max_zombies",50);
 	if (max_zombies<50) max_zombies=50;
-	s32 max_pzombies = cfg.read_s32("game_time",125);
+	s32 max_pzombies = cfg.read_s32("max_pzombies",25);
 	if (max_pzombies<25) max_pzombies=25;
-	s32 max_migrantbots = cfg.read_s32("game_time",125);
+	s32 max_migrantbots = cfg.read_s32("max_migrantbots",5);
 	if (max_migrantbots<2) max_migrantbots=2;	
 	getRules().set_s32("max_zombies", max_zombies);
 	getRules().set_s32("max_pzombies", max_pzombies);
@@ -324,7 +324,7 @@ shared class ZombiesSpawns : RespawnSystem
 		if (player.getTeamNum() == core.rules.getSpectatorTeamNum())
 			return;
 			
-		print("ADD SPAWN FOR " + player.getUsername()+ "Spawn Delay: " +tickspawndelay);
+		//print("ADD SPAWN FOR " + player.getUsername()+ "Spawn Delay: " +tickspawndelay);
 
 		if (info.team < Zombies_core.teams.length)
 		{
@@ -426,7 +426,7 @@ shared class ZombiesCore : RulesCore
 		if (extra_migrantbots>max_migrantbots-2) extra_migrantbots=max_migrantbots-2; //default 100
 		if (spawnRate<8) spawnRate=8;
 		int wraiteRate = 2 + (intdif/4);
-		if (getGameTime() % 300 == 0)
+		if (getGameTime() % 600 == 0)
 		{
 			CBlob@[] zombie_blobs;
 			getBlobsByTag("zombie", @zombie_blobs );

@@ -33,7 +33,6 @@ void onTick( CBlob@ this )
 		
 		if (this.hasTag("Regular Orb"))
 		{
-			print("regular");
 			this.getSprite().SetAnimation("normal");
 			this.set_f32("explosive_radius", 12.0f );
 			this.set_f32("explosive_damage", 0.75f);
