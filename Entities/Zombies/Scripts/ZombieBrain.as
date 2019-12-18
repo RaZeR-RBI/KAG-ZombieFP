@@ -243,13 +243,13 @@ void ScaleObstacles( CBlob@ blob, Vec2f destination )
 		}
 	}
 
-	if (touchingOther || blob.isOnWall() || (blob.hasTag("is_stuck") && blob.isInWater()))
-	{
-		blob.setKeyPressed(key_up, true);
-	}
-	else if (blob.isOnLadder() || blob.isInWater())
+	if (blob.isOnLadder() || (blob.isInWater() && !blob.hasTag("is_stuck")))
 	{	
 	    blob.setKeyPressed(destination.y < mypos.y ? key_up : key_down, true);
+	}
+	else if (touchingOther || blob.isOnWall() || (blob.hasTag("is_stuck") && blob.isInWater()))
+	{
+		blob.setKeyPressed(key_up, true);
 	}
 	else
 	{

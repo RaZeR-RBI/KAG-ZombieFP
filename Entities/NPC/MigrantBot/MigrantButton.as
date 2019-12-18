@@ -37,7 +37,7 @@ void GetButtonsFor( CBlob@ this, CBlob@ caller )
 	if (strategy != Strategy::idle && strategy != Strategy::runaway)
 	{
 		strategy = Strategy::idle;
-		printf("strategy idle = "+strategy);
+		// printf("strategy idle = "+strategy);
 		//params.write_u16( this.getNetworkID() );
 		params.write_u8( strategy );
 		caller.CreateGenericButton( "$migrant_standground$", Vec2f(0,-16), this,  this.getCommandID("migrant_stop"), "Tell migrant to stop", params );
@@ -45,7 +45,7 @@ void GetButtonsFor( CBlob@ this, CBlob@ caller )
 	else
 	{
 		strategy = Strategy::find_teammate;
-		printf("strategy Teammate = "+strategy);
+		// printf("strategy Teammate = "+strategy);
 		//params.write_u16( this.getNetworkID() );
 		params.write_u8( strategy );
 		caller.CreateGenericButton( "$migrant_continue$", Vec2f(0,-16), this,  this.getCommandID("migrant_start"), "Tell migrant to follow and or go to Dorm", params );

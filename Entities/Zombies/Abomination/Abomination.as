@@ -11,47 +11,6 @@ const int COINS_ON_DEATH = 300;
 
 void onInit(CBlob@ this)
 {
-	TargetInfo[] infos;
-
-	{
-		TargetInfo i("survivorplayer", 1.0f, true, true);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("ally", 0.9f, true);
-		infos.push_back(i);
-	}	
-	{
-		TargetInfo i("survivorbuilding", 0.8f, true);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("stone_door", 0.6f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("wooden_door", 0.4f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("stone_block", 0.3f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("wood_block", 0.3f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("pet", 0.2f, true);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("lantern", 0.2f);
-		infos.push_back(i);
-	}
-
-	this.set("target infos", infos);
-	
 	this.set_u8("attack frequency", ATTACK_FREQUENCY);
 	this.set_f32("attack damage", ATTACK_DAMAGE);
 	this.set_f32("attack distance", ATTACK_DISTANCE);	
