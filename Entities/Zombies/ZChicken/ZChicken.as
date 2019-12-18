@@ -9,41 +9,6 @@ const int COINS_ON_DEATH = 1;
 
 void onInit(CBlob@ this)
 {
-	TargetInfo[] infos;
-
-	{
-		TargetInfo i("survivorplayer", 1.0f, true, true);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("pet", 0.9f, true);
-		infos.push_back(i);
-	}	
-	{
-		TargetInfo i("lantern", 0.9f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("ally", 0.9f, true);
-		infos.push_back(i);
-	}			
-	{
-		TargetInfo i("mounted_bow", 0.6f);
-		infos.push_back(i);		
-	}
-	{
-		TargetInfo i("mounted_bazooka", 0.6f);
-		infos.push_back(i);		
-	}	
-
-	//for EatOthers
-	string[] tags = {"dead"};
-	this.set("tags to eat", tags);
-	
-	this.set_f32("bite damage", 0.5f);
-	
-	this.set("target infos", @infos);
-	
 	this.set_u8("attack frequency", ATTACK_FREQUENCY);
 	this.set_f32("attack damage", ATTACK_DAMAGE);
 	this.set_string("attack sound", "zChickenScared");
