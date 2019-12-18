@@ -405,7 +405,8 @@ shared class ZombiesCore : RulesCore
 		if (intdif<=0) intdif=1;
 		int spawnRate = getTicksASecond() * (6-(difficulty/2.2)); //default 2.0
 		if (spawnRate<8) spawnRate=8;
-		int wraiteRate = 2 + (intdif/4);
+		// int wraiteRate = 2 + (intdif/4);
+		const int wraiteRate = 15;
 
 		// update active mobs count
 		if (getGameTime() % 300 == 0)
@@ -472,13 +473,13 @@ shared class ZombiesCore : RulesCore
                     int r;
                     if (actdiff>13) r = XORRandom(13); else r = XORRandom(actdiff); //default actdiff>9
                     int rr = XORRandom(14);
-                    if (r==12 && rr<wraiteRate)
+                    if (r>=10 && rr<wraiteRate)
                     server_CreateBlob( "wraith", -1, sp);
                     else
-                    if (r==10 && rr<wraiteRate)
+                    if (r>=10 && rr<wraiteRate)
                     server_CreateBlob( "greg", -1, sp);
                     else					
-                    if (r==8)
+                    if (r>=8)
                     server_CreateBlob( "zombieknight", -1, sp);
                     else
 					if (r==6)

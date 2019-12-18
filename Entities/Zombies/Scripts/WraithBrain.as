@@ -3,6 +3,7 @@
 #define SERVER_ONLY
 
 #include "CreatureCommon.as";
+#include "CreatureTargeting.as";
 #include "BrainCommon.as";
 #include "PressOldKeys.as";
 
@@ -72,14 +73,17 @@ void onTick( CBrain@ this )
 
 bool ShouldLoseTarget( CBlob@ blob, CBlob@ target )
 {
-	if (blob.hasTag("enraged"))
-	    return false; // if engraged keep going for it
+	bool result = false;
 	if (target.hasTag("dead"))
-		return true;
+		result = true;
 	else if(getDistanceBetween(target.getPosition(), blob.getPosition()) > blob.get_f32(target_searchrad_property))
-		return true;
+		result = true;
 	else
-	    return !isTargetVisible(blob, target) && !blob.hasTag("enraged");
+	    result = !isTargetVisible(blob, target) && XORRandom(30) == 0;
+
+	if (result && blob.hasTag("is_stuck"))
+		blob.Untag("is_stuck");
+	return result;
 }
 
 void FlyAround( CBrain@ this, CBlob@ blob )
@@ -109,6 +113,7 @@ void FlyAround( CBrain@ this, CBlob@ blob )
 	StayAboveGroundLevel( blob );
 }
 
+/*
 void FindTarget( CBrain@ this, CBlob@ blob, f32 radius )
 {
 	CBlob@[] nearBlobs;
@@ -138,6 +143,18 @@ void FindTarget( CBrain@ this, CBlob@ blob, f32 radius )
 	{
 		this.SetTarget(closest_candidate);
 	}
+}*/
+
+void FindTarget( CBrain@ this, CBlob@ blob, f32 radius )
+{
+    // if (!blob.hasTag("is_stuck"))
+	// {
+		CBlob@ target = GetBestTarget(this, blob, radius);
+		if (target !is null) this.SetTarget(target);
+	// } else {
+		// CBlob@ target = GetClosestVisibleTarget(this, blob, radius);
+		// if (target !is null) this.SetTarget(target);
+	// }
 }
 
 void FlyTo( CBlob@ blob, Vec2f destination )

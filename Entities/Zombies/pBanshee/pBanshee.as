@@ -13,34 +13,13 @@ void onInit(CBlob@ this)
 {
 	TargetInfo[] infos;
 
-	{
-		TargetInfo i("survivorplayer", 0.8f, true, true);
-		infos.push_back(i);	
-	}
-	{
-		TargetInfo i("pet", 0.9f, true);
-		infos.push_back(i);
-	}	
-	{
-		TargetInfo i("survivorbuilding", 1.0f, true);
-		infos.push_back(i);
-	}	
-	{
-		TargetInfo i("stone_door", 1.0f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("wooden_door", 0.9f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("mounted_bow", 0.6f);
-		infos.push_back(i);		
-	}
-	{
-		TargetInfo i("mounted_bazooka", 0.6f);
-		infos.push_back(i);		
-	}	
+	addTargetInfo(infos, "survivorplayer", 0.8f, true, true);
+	addTargetInfo(infos, "pet", 0.9f, true);
+	addTargetInfo(infos, "survivorbuilding", 1.0f, true);
+	addTargetInfo(infos, "stone_door", 1.0f);
+	addTargetInfo(infos, "wooden_door", 0.9f);
+	addTargetInfo(infos, "mounted_bow", 0.6f);
+	addTargetInfo(infos, "mounted_bazooka", 0.6f);
 
 
 	this.set("target infos", infos);
@@ -64,7 +43,7 @@ void onInit(CBlob@ this)
 	this.set_f32("explosive_damage", 10.0f);
 	this.set_string("custom_explosion_sound", "Entities/Items/Explosives/KegExplosion.ogg");
 	this.set_f32("map_damage_radius", 72.0f);
-	this.set_f32("map_damage_ratio", 0.4f);
+	this.set_f32("map_damage_ratio", 1.0f);
 	this.set_bool("map_damage_raycast", true);
 	this.set_bool("explosive_teamkill", true);
 	//

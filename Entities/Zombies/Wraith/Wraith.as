@@ -9,31 +9,11 @@ const int COINS_ON_DEATH = 10;
 void onInit(CBlob@ this)
 {
 	TargetInfo[] infos;
-
-	{
-		TargetInfo i("survivorplayer", 0.8f, true, true);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("pet", 0.9f, true);
-		infos.push_back(i);
-	}	
-	{
-		TargetInfo i("lantern", 0.9f);
-		infos.push_back(i);		
-	}
-	{
-		TargetInfo i("stone_door", 1.0f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("wooden_door", 0.9f);
-		infos.push_back(i);
-	}
-	{
-		TargetInfo i("survivorbuilding", 0.6f, true);
-		infos.push_back(i);
-	}		
+	addTargetInfo(infos, "survivorplayer", 1.0f, true, true);
+	addTargetInfo(infos, "pet", 0.9f, true);
+	addTargetInfo(infos, "stone_door", 0.9f);
+	addTargetInfo(infos, "wooden_door", 0.9f);
+	addTargetInfo(infos, "survivorbuilding", 0.6f, true);
 
 	this.set("target infos", infos);
 
@@ -52,13 +32,15 @@ void onInit(CBlob@ this)
     this.Tag("flesh");
 
 	// explosiveness
+	this.Tag("bomberman_style");
+	this.set_f32("map_bomberman_width", 24.0f);
 	this.set_f32("explosive_radius", 64.0f);
 	this.set_f32("explosive_damage", 10.0f);
 	this.set_string("custom_explosion_sound", "Entities/Items/Explosives/KegExplosion.ogg");
-	this.set_f32("map_damage_radius", 40.0f);
-	this.set_f32("map_damage_ratio", 0.4f);
+	this.set_f32("map_damage_radius", 72.0f);
+	this.set_f32("map_damage_ratio", 0.8f);
 	this.set_bool("map_damage_raycast", true);
-	this.set_bool("explosive_teamkill", true);
+	this.set_bool("explosive_teamkill", false);
 	//
 
 	this.getCurrentScript().runFlags |= Script::tick_not_attached;
