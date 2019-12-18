@@ -147,8 +147,8 @@ CBlob@ GetClosestVisibleTarget( CBrain@ this, CBlob@ blob, f32 radius )
 				f32 dist = getDistanceBetween(candidate.getPosition(), blob.getPosition());
 				if (dist < closest_dist && visible ? is_visible : (seeThroughWalls ? true : is_visible))
 				{
-					if(!is_visible && XORRandom(30) > 3)
-					    continue;
+					// if(!is_visible && XORRandom(30) > 3)
+					    // continue;
 
 					@best_candidate = candidate;
 					closest_dist = dist;
@@ -176,7 +176,7 @@ CBlob@ GetBestTarget( CBrain@ this, CBlob@ blob, f32 radius )
 		if    (candidate is null) break;
 
 	    f32 priority = getTargetPriority(blob, candidate);
-		if (priority > highest_priority && !candidate.hasTag("dead"))
+		if (priority >= highest_priority && !candidate.hasTag("dead"))
 		{
 			if (isTarget(blob, candidate))
 			{
@@ -225,8 +225,29 @@ void ScaleObstacles( CBlob@ blob, Vec2f destination )
 	Vec2f mypos = blob.getPosition();
 
 	const f32 radius = blob.getRadius();
+	// check if possibly touching other zombies
+	bool touchingOther = !blob.isOnGround() && blob.getTouchingCount() > 0;
+	// if we're touching someone, check if it's a zombie
+	if (touchingOther)
+	{
+		touchingOther = false;
+		const uint count = blob.getTouchingCount();
+		for (uint step = 0; step < count; ++step)
+		{
+			CBlob@ _blob = blob.getTouchingByIndex(step);
+			if (_blob.hasTag("zombie"))
+			{
+				touchingOther = true;
+				break;
+			}
+		}
+	}
 
-	if (blob.isOnLadder() || blob.isOnWall())
+	if (touchingOther || blob.isOnWall() || (blob.hasTag("is_stuck") && blob.isInWater()))
+	{
+		blob.setKeyPressed(key_up, true);
+	}
+	else if (blob.isOnLadder() || blob.isInWater())
 	{	
 	    blob.setKeyPressed(destination.y < mypos.y ? key_up : key_down, true);
 	}

@@ -185,3 +185,9 @@ f32 getYBetween( Vec2f point1, Vec2f point2 )
 {
     return Maths::Abs(point1.y - point2.y);
 }
+
+void addTargetInfo(TargetInfo[]@ infos, string _identifier, f32 _priority = 0.5f, bool _tag = false, bool _seeThroughWalls = false )
+{
+    TargetInfo i(_identifier, _priority, _tag, _seeThroughWalls);
+    infos.push_back(i);
+}

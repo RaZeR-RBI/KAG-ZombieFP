@@ -31,7 +31,7 @@ void GetButtonsFor( CBlob@ this, CBlob@ caller )
 	if (this.hasTag("dead"))
 		return;
 	u8 strategy = this.get_u8("strategy");
-	printf("strategy = "+strategy);
+	// printf("strategy = "+strategy);
 	CBitStream params;
 	const string name = this.getName();
 	if (strategy != Strategy::idle && strategy != Strategy::runaway)
