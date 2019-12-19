@@ -101,13 +101,13 @@ void addCommonBuilderBlocks(BuildBlock[][]@ blocks)
 	{
 		BuildBlock b(0, "spikes", "$spikes$", "Spikes\nPlace on Stone Block\nfor Retracting Trap");
 		AddRequirement(b.reqs, "blob", "mat_stone", "Stone", 25);
-		AddRequirement(b.reqs, "blob", "mat_gold", "Gold", 5);
+		// AddRequirement(b.reqs, "blob", "mat_gold", "Gold", 5);
 		blocks[0].push_back(b);
 	}
 	{
 		BuildBlock b(0, "fire_trap_block", "$fire_trap_block$", "Fire Trap\nStay away from it.");
 		AddRequirement(b.reqs, "blob", "mat_stone", "Stone", 50);
-		AddRequirement(b.reqs, "blob", "mat_gold", "Gold", 50);
+		AddRequirement(b.reqs, "blob", "mat_gold", "Gold", 10);
 		blocks[0].push_back(b);
 	}		
 

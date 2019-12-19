@@ -52,7 +52,7 @@ void onInit(CBlob@ this)
 		ShopItem@ s = addShopItem(this, "Saw", "$saw$", "saw", descriptions[12], false);
 		AddRequirement(s.requirements, "blob", "mat_wood", "Wood", 100);
 		AddRequirement(s.requirements, "blob", "mat_stone", "Stone", 100);
-		AddRequirement( s.requirements, "blob", "mat_gold", "Gold", 60 );
+		// AddRequirement( s.requirements, "blob", "mat_gold", "Gold", 60 );
 	}
 	{
 		ShopItem@ s = addShopItem(this, "Sponge", "$sponge$", "sponge", descriptions[53], false);
