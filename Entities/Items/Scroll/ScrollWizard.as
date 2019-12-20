@@ -36,7 +36,7 @@ void onCommand( CBlob@ this, u8 cmd, CBitStream @params )
         {
             if (caller !is null)
             {
-				warn("chealler:");
+				
                 string classconfig = "wizard";//params.read_string();
                 CBlob @newBlob = server_CreateBlobNoInit( classconfig);//, caller.getTeamNum(), this.getRespawnPosition() );
 

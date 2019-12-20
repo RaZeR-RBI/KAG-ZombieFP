@@ -42,7 +42,7 @@ void onCommand( CBlob@ this, u8 cmd, CBitStream @params )
 		        if (getNet().isServer() )
 		        {
 		        	player.server_setTeamNum(1);
-					warn("chealler:");
+					
 	                string classconfig = "undeadbuilder";//params.read_string();
 	                CBlob @newBlob = server_CreateBlobNoInit( classconfig);//, caller.getTeamNum(), this.getRespawnPosition() );
 

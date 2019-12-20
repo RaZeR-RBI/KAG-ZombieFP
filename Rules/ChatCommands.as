@@ -139,12 +139,12 @@ bool onServerProcessChat(CRules@ this, const string& in text_in, string& out tex
 					int team = parseInt(tokens[1]);
 					blob.server_setTeamNum(team);
 				}
-				else if (tokens[0] == "!scroll")
+				else if (tokens[0] == "!spawn")
 				{
 					string s = tokens[1];
 					for (uint i = 2; i < tokens.length; i++)
 						s += " " + tokens[i];
-					server_MakePredefinedScroll(pos, s);
+					server_CreateBlob(s, team, pos);
 				}
 
 				return true;

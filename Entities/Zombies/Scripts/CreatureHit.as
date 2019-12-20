@@ -23,7 +23,9 @@ f32 onHit(CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, CBlob@ hitt
 	//printf("gibHealth " + gibHealth + " health " + this.getHealth() );
 	if (this.getHealth() <= gibHealth)
 	{
-	    server_DropCoins(this.getPosition() + Vec2f(0, -3.0f), this.get_u16("coins on death"));
+		// don't drop coins for smaller zombies
+		if (!this.hasTag("lesser_zombie"))
+	    	server_DropCoins(this.getPosition() + Vec2f(0, -3.0f), this.get_u16("coins on death"));
 
 		this.getSprite().Gib();
 		this.server_Die();
