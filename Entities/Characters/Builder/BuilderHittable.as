@@ -80,7 +80,8 @@ const string[] builder_alwayshit =
 const string[] builder_alwayshit_fragment =
 {
 	"shop",
-	"door"
+	"door",
+	"platform"
 };
 
 bool BuilderAlwaysHit(CBlob@ blob)
