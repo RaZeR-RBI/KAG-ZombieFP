@@ -4,6 +4,7 @@
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
 #include "Knocked.as";
+#include "HeadOffsetUtil.as";
 
 const string shiny_layer = "shiny bit";
 
@@ -12,6 +13,7 @@ void onInit(CSprite@ this)
 	string texname = "Assassin.png";
 	this.ReloadSprite(texname, this.getConsts().frameWidth, this.getConsts().frameHeight,
 	                  this.getBlob().getTeamNum(), this.getBlob().getSkinNum());
+    setupHeadOffsets(this, "assassin", texname);
 	// add blade
 	this.RemoveSpriteLayer("chop");
 	CSpriteLayer@ chop = this.addSpriteLayer("chop");

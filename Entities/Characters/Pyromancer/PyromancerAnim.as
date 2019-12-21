@@ -5,6 +5,7 @@
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
 #include "Knocked.as";
+#include "HeadOffsetUtil.as";
 
 const f32 config_offset = -4.0f;
 const string shiny_layer = "shiny bit";
@@ -16,9 +17,10 @@ void onInit(CSprite@ this)
 
 void LoadSprites(CSprite@ this)
 {
-	string texname = "../Pyromancer.png";
+	string texname = "Pyromancer.png";
     this.ReloadSprite( texname, this.getConsts().frameWidth, this.getConsts().frameHeight,
                        this.getBlob().getTeamNum(), this.getBlob().getSkinNum() );
+    setupHeadOffsets(this, "pyromancer", texname);
 	this.RemoveSpriteLayer("frontarm");
 	CSpriteLayer@ frontarm = this.addSpriteLayer("frontarm", texname , 32, 16, this.getBlob().getTeamNum(), this.getBlob().getSkinNum());
 
