@@ -1,6 +1,5 @@
 #define SERVER_ONLY
 
-const int min_migrant = 2;
 const string migrant_name = "migrantbot";
 
 void onTick(CRules@ this)
@@ -12,9 +11,10 @@ void onTick(CRules@ this)
 	if (map is null || map.tilemapwidth < 2) return; //failed to load map?
 
 	CBlob@[] migrant;
-	getBlobsByName(migrant_name, @migrant);
+	int max_migrantbots = this.get_s32("max_migrantbots");
+	getBlobsByTag("migrantbot", @migrant );
 	
-	if (migrant.length < min_migrant && map.getDayTime()>0.4 && map.getDayTime()<0.6)
+	if (migrant.length < max_migrantbots && map.getDayTime()>0.4 && map.getDayTime()<0.6)
 	{
 		f32 x = XORRandom(2) == 0 ? 32.0f : map.tilemapwidth * map.tilesize - 32.0f;
 
@@ -32,7 +32,7 @@ void onTick(CRules@ this)
 				//if (!map.isInWater(pos))
 				{
 					server_CreateBlob("migrantbot", 0, pos);
-					Sound::Play("MigrantSayHello.ogg", pos, 1.5f);
+					// Sound::Play("MigrantSayHello.ogg", pos, 1.0f, 1.5f);
 					break;
 				}
 			}

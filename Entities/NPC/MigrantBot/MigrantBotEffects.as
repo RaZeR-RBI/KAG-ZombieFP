@@ -5,6 +5,7 @@
 void onInit( CBlob@ this )
 {
 	this.getCurrentScript().tickFrequency = 29;
+	this.getSprite().PlaySound("/MigrantSayHello", 1.0f, 1.5f);
 }
 
 void onTick( CBlob@ this )
@@ -32,6 +33,11 @@ void onTick( CBlob@ this )
 		//{
 		//	this.getSprite().PlaySound("/MigrantScream");  // temp: fix for migrants screaming all the time
 		//}
+		if (getGameTime() - this.get_u32("last_scream_time") > 60 + XORRandom(20))
+		{
+			this.getSprite().PlaySound("/MigrantScream", 1.0f, 1.5f);
+			this.set_u32("last_scream_time", getGameTime());
+		}
 	}
 	else
 	{
@@ -39,7 +45,7 @@ void onTick( CBlob@ this )
 		const int t2 = this.getTickSinceCreated();
 		if (t2 > t && t2 <= t*2 && this.isOverlapping("hall"))
 		{																								   
-			this.getSprite().PlaySound("/MigrantSayHello");
+			this.getSprite().PlaySound("/MigrantSayHello", 1.0f, 1.5f);
 		}	
 	}
 }
@@ -54,13 +60,13 @@ void onCollision( CBlob@ this, CBlob@ blob, bool solid )
 			{
 				if (XORRandom(5) == 0 && !blob.hasTag("migrant"))
 				{
-					this.getSprite().PlaySound("/MigrantSayFriend");
+					this.getSprite().PlaySound("/MigrantSayFriend", 1.0f, 1.5f);
 				}
 			}
 			else 
 			if (this.getTeamNum() < 10)
 			{
-				this.getSprite().PlaySound("/MigrantSayNo");
+				this.getSprite().PlaySound("/MigrantSayNo", 1.0f, 1.5f);
 			}
 		}
 	}
@@ -91,6 +97,5 @@ void onSetPlayer( CBlob@ this, CPlayer@ player )
 void onChangeTeam( CBlob@ this, const int oldTeam )
 {
 	// calm down
-
 	this.set_u8("strategy", 0);	
 }
