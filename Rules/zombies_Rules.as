@@ -30,6 +30,7 @@ void Config(ZombiesCore@ this)
 	getRules().set_s32("max_pzombies", max_pzombies);
 	getRules().set_s32("max_migrantbots", max_migrantbots);
 	getRules().set_bool("grave_spawn", grave_spawn);
+	getRules().set_bool("zombify", cfg.read_bool("zombify", false));
 	getRules().set_s32("days_to_survive", cfg.read_s32("days_to_survive", 15));
     //spawn after death time 
     this.spawnTime = (getTicksASecond() * cfg.read_s32("spawn_time", 30));
@@ -589,7 +590,8 @@ shared class ZombiesCore : RulesCore
 			if (killer !is null && killer.getTeamNum() != victim.getTeamNum())
 			{
 				addKill(killer.getTeamNum());
-				Zombify ( victim );
+				if (rules.get_bool("zombify"))
+					Zombify ( victim );
 			}
 		}
 	}
