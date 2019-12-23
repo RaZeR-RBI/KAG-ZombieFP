@@ -4,16 +4,14 @@
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
 #include "Knocked.as";
-#include "HeadOffsetUtil.as";
+#include "RunnerTextures.as";
 
 const string shiny_layer = "shiny bit";
 
 void onInit(CSprite@ this)
 {
-	string texname = "Assassin.png";
-	this.ReloadSprite(texname, this.getConsts().frameWidth, this.getConsts().frameHeight,
-	                  this.getBlob().getTeamNum(), this.getBlob().getSkinNum());
-    setupHeadOffsets(this, "assassin", texname);
+    ensureCorrectRunnerTexture(this, "assassin", "Assassin");
+	string texname = getRunnerTextureName(this);
 	// add blade
 	this.RemoveSpriteLayer("chop");
 	CSpriteLayer@ chop = this.addSpriteLayer("chop");
@@ -42,7 +40,7 @@ void onInit(CSprite@ this)
 	}
 	
 	this.RemoveSpriteLayer("hook");
-	CSpriteLayer@ hook = this.addSpriteLayer("hook", "Assassin.png" , 16, 8, this.getBlob().getTeamNum(), this.getBlob().getSkinNum());
+	CSpriteLayer@ hook = this.addSpriteLayer("hook", "AssassinMale.png" , 16, 8, this.getBlob().getTeamNum(), this.getBlob().getSkinNum());
 
 	if (hook !is null)
 	{
@@ -53,7 +51,7 @@ void onInit(CSprite@ this)
 	}
 
 	this.RemoveSpriteLayer("rope");
-	CSpriteLayer@ rope = this.addSpriteLayer("rope", "Assassin.png" , 32, 8, this.getBlob().getTeamNum(), this.getBlob().getSkinNum());
+	CSpriteLayer@ rope = this.addSpriteLayer("rope", "AssassinMale.png" , 32, 8, this.getBlob().getTeamNum(), this.getBlob().getSkinNum());
 
 	if (rope !is null)
 	{

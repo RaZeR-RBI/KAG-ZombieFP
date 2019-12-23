@@ -4,16 +4,24 @@
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
 #include "Knocked.as";
-#include "HeadOffsetUtil.as";
+#include "RunnerTextures.as";
 
 const string shiny_layer = "shiny bit";
 
 void onInit(CSprite@ this)
 {
-	string texname = "Dragoon.png";
-	this.ReloadSprite(texname, this.getConsts().frameWidth, this.getConsts().frameHeight,
-	                  this.getBlob().getTeamNum(), this.getBlob().getSkinNum());
-    setupHeadOffsets(this, "dragoon", texname);
+	LoadSprites(this);
+}
+
+void onPlayerInfoChanged(CSprite@ this)
+{
+	LoadSprites(this);
+}
+
+void LoadSprites(CSprite@ this)
+{
+    ensureCorrectRunnerTexture(this, "dragoon", "Dragoon");
+	string texname = getRunnerTextureName(this);
 	// add blade
 	this.RemoveSpriteLayer("chop");
 	CSpriteLayer@ chop = this.addSpriteLayer("chop");
@@ -417,10 +425,10 @@ void onGib(CSprite@ this)
 	vel.y -= 3.0f;
 	f32 hp = Maths::Min(Maths::Abs(blob.getHealth()), 2.0f) + 1.0f;
 	const u8 team = blob.getTeamNum();
-	CParticle@ Body     = makeGibParticle("../DragoonGibs.png", pos, vel + getRandomVelocity(90, hp , 80), 0, 0, Vec2f(16, 16), 2.0f, 20, "/BodyGibFall", team);
-	CParticle@ Arm      = makeGibParticle("../DragoonGibs.png", pos, vel + getRandomVelocity(90, hp - 0.2 , 80), 1, 0, Vec2f(16, 16), 2.0f, 20, "/BodyGibFall", team);
-	CParticle@ Shield   = makeGibParticle("../DragoonGibs.png", pos, vel + getRandomVelocity(90, hp , 80), 2, 0, Vec2f(16, 16), 2.0f, 0, "Sounds/material_drop.ogg", team);
-	CParticle@ Sword    = makeGibParticle("../DragoonGibs.png", pos, vel + getRandomVelocity(90, hp + 1 , 80), 3, 0, Vec2f(16, 16), 2.0f, 0, "Sounds/material_drop.ogg", team);
+	CParticle@ Body     = makeGibParticle("DragoonGibs.png", pos, vel + getRandomVelocity(90, hp , 80), 0, 0, Vec2f(16, 16), 2.0f, 20, "/BodyGibFall", team);
+	CParticle@ Arm      = makeGibParticle("DragoonGibs.png", pos, vel + getRandomVelocity(90, hp - 0.2 , 80), 1, 0, Vec2f(16, 16), 2.0f, 20, "/BodyGibFall", team);
+	CParticle@ Shield   = makeGibParticle("DragoonGibs.png", pos, vel + getRandomVelocity(90, hp , 80), 2, 0, Vec2f(16, 16), 2.0f, 0, "Sounds/material_drop.ogg", team);
+	CParticle@ Sword    = makeGibParticle("DragoonGibs.png", pos, vel + getRandomVelocity(90, hp + 1 , 80), 3, 0, Vec2f(16, 16), 2.0f, 0, "Sounds/material_drop.ogg", team);
 }
 
 
