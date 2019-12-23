@@ -24,7 +24,7 @@ void InitLoot( CBlob@ this )
 	addLoot(this, "divinghelmet", 2, 1);
 	addLoot(this, "schicken", 3, 1);
 	addLoot(this, "drill", 3, 1);
-	addLoot(this, "szombie", 4, 1);
+	// addLoot(this, "szombie", 4, 1);
 	//addLoot(this, "scrollundead", 4, 1);
     addLoot(this, "mat_wood", 0, XORRandom(309) + 101); //chest will drop coins with quantity 1 - 60
     addLoot(this, "coins", 0, XORRandom(29) + 1); //chest will drop coins with quantity 1 - 30

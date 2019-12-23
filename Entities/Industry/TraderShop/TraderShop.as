@@ -31,10 +31,12 @@ void onInit( CBlob@ this )
 		ShopItem@ s = addShopItem( this, "Diving Helmet", "$divinghelmet$", "divinghelmet", "A helmet specially made for underwater exploring.", true );
 		AddRequirement( s.requirements, "coin", "", "Coins", 50 );
 	}
+	/*
 	{
 		ShopItem@ s = addShopItem( this, "Gold Drill", "$golddrill$", "golddrill", "An improved drill.", true );
 		AddRequirement( s.requirements, "coin", "", "Coins", 50 );
-	}	
+	}
+	*/	
 	{	 
 		ShopItem@ s = addShopItem( this, "Shark", "$shark$", "fshark", "It eats zombies too.", false, true );
 		s.crate_icon = 22;

@@ -35,6 +35,7 @@ void onInit( CBlob@ this )
 		ShopItem@ s = addShopItem( this, "30 Regular Orbs", "$mat_orbs$", "mat_orbs", "The basic kind of orbs.", true);
 		AddRequirement( s.requirements, "coin", "", "Coins", 15 );
 	}
+	/*
 	{
 		ShopItem@ s = addShopItem( this, "Scroll of Skeleton Rain", "$sskeleton$", "sskeleton", "Powered by dark magic.", true );
 		AddRequirement( s.requirements, "coin", "", "Coins", 100 );
@@ -42,7 +43,8 @@ void onInit( CBlob@ this )
 	{
 		ShopItem@ s = addShopItem( this, "Scroll of Zombie Rain", "$szombie$", "szombie", "Powered by dark magic.", true );
 		AddRequirement( s.requirements, "coin", "", "Coins", 100 );
-	}	
+	}
+	*/	
 	/*{
 		ShopItem@ s = addShopItem(this, "Book of the Slayer", "$sslayer$", "sslayer", "A spellbook to become a Slayer.", true);
 		AddRequirement(s.requirements, "coin", "", "Coins", 100 );

@@ -24,7 +24,7 @@ void InitLoot( CBlob@ this )
 	//addLoot(this, "scrossbow", 2, 1);
 	addLoot(this, "sslayer", 2, 1);
 	addLoot(this, "selemental", 3, 1);
-	addLoot(this, "sskeleton", 4, 1);
+	// addLoot(this, "sskeleton", 4, 1);
     addLoot(this, "pankou", 5, 1); //chest will drop coins with quantity 1 - 60
     addLoot(this, "coins", 0, XORRandom(19) + 1); //chest will drop coins with quantity 1 - 30
 }
