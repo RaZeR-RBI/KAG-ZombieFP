@@ -3,7 +3,6 @@
 void onInit( CBlob@ this )
 {
 	this.Tag("large_zombie");
-	this.Tag("no falldamage");
 	SetupTargets(this);
 }
 
