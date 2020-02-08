@@ -14,6 +14,8 @@ const int PICKUP_COOLDOWN = 15;
 const int fletch_num_arrows = 1;
 const int STAB_DELAY = 10;
 const int STAB_TIME = 22;
+const int RUNE_COOLDOWN = 2500;
+const int RUNE_RANGE = 50.0f;
 
 void onInit(CBlob@ this)
 {
@@ -38,6 +40,7 @@ void onInit(CBlob@ this)
 	this.getSprite().SetEmitSound("../FireRoarQuiet.ogg");
 	this.addCommandID("shoot firebolt");
 	this.getShape().getConsts().net_threshold_multiplier = 0.5f;
+	this.addCommandID("shoot firerune");
 
 	//add a command ID for each arrow type
 	AddIconToken( "$Firewalk$", "pSpellIcons.png", Vec2f(16,16), 0 );
@@ -282,39 +285,16 @@ void onTick(CBlob@ this)
 		pyromancer.charge_time = 0;
 		return;
 	}
+
+	if (pyromancer.secondary_cooldown > 0) {
+		pyromancer.secondary_cooldown--;
+	}
 	
 	if (getKnocked(this) <= 0)
 	if (this.isKeyPressed(key_action2) && !this.isKeyPressed(key_action1)){
-		
-		if(this.isKeyJustPressed(key_action2)){
-			Sound::Play("Firewoosh.ogg", this.getPosition());
-		}
-		
-		this.Tag("flaming");	
-		
-		RunnerMoveVars@ moveVars;
-		if (this.get("moveVars", @moveVars))
-		{
-			moveVars.walkFactor *= 0.1f;
-		}
-	
-		int neg = 1;
-		if(this.isFacingLeft())neg = -1;
-		
-		CMap@ map = getMap();
-		int range = 0;
-		
-		if (map != null)
-		for (int doFirey = -80; doFirey <= 80; doFirey += 1 * 8) //8 - tile size in pixels
-		{
-			for (int doFirex = 0; doFirex <= 3 * 8; doFirex += 1 * 8) //8 - tile size in pixels
-			{
-				if(doFirey <= (doFirex/3) && doFirey >= -(doFirex/3))
-				map.server_setFireWorldspace(Vec2f(this.getPosition().x + (doFirex+12)*neg, this.getPosition().y + doFirey - 8), true);
-				if(map.isTileSolid(map.getTile(Vec2f(this.getPosition().x + (doFirex+12)*neg, this.getPosition().y + doFirey - 8)).type))break;
-				this.SetLight(true);
-				this.SetLightRadius(48.0f);
-				this.SetLightColor(SColor(255, 255, 240, 171));	
+		if (pyromancer.secondary_cooldown <= 0) {
+			if (ShootFireRune(this)) {
+				pyromancer.secondary_cooldown = RUNE_COOLDOWN;
 			}
 		}
 	}
@@ -387,6 +367,26 @@ void ShootFirebolt(CBlob @this, Vec2f arrowPos, Vec2f aimpos, f32 arrowspeed, co
 	}
 }
 
+bool ShootFireRune(CBlob @this)
+{
+	if (canSend(this))
+	{
+		Vec2f pos = this.getAimPos();
+		Vec2f caster_pos = this.getPosition();
+		if ((pos - caster_pos).Length() > RUNE_RANGE) {
+			return false;
+		}
+		if (this.getMap().isTileSolid(pos)) {
+			return false;
+		}
+		CBitStream params;
+		params.write_Vec2f(pos);
+		this.SendCommand(this.getCommandID("shoot firerune"), params);
+		return true;
+	}
+	return false;
+}
+
 CBlob@ CreateFireBolt(CBlob@ this, Vec2f arrowPos, Vec2f arrowVel, u8 arrowType)
 {
 	
@@ -408,6 +408,13 @@ CBlob@ CreateFireBall(CBlob@ this, Vec2f arrowPos, Vec2f arrowVel, u8 arrowType)
 	{
 		blob.setVelocity(arrowVel);
 	}
+	return blob;
+}
+
+CBlob@ CreateFireRune(CBlob@ this, Vec2f pos)
+{
+	CBlob @blob = server_CreateBlob("firerune", this.getTeamNum(), pos);
+	this.getSprite().PlaySound("FireBall.ogg");
 	return blob;
 }
 
@@ -444,6 +451,11 @@ void onCommand(CBlob@ this, u8 cmd, CBitStream @params)
 			}
 		}
 		this.getSprite().PlaySound("FireBolt.ogg");
+	} else if (cmd == this.getCommandID("shoot firerune")) {
+		Vec2f pos = params.read_Vec2f();
+		if (getNet().isServer()) {
+			CreateFireRune(this, pos);
+		}
 	}
 }
 

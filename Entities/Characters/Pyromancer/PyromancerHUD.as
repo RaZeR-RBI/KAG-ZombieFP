@@ -72,4 +72,17 @@ void onRender( CSprite@ this )
 
 	// class weapon icon
 	GUI::DrawIcon( iconsFilename, 7, Vec2f(16, 16), Vec2f(10, 10), 1.0f);
+
+	PyromancerInfo@ pyromancer;
+	if (!blob.get("pyromancerInfo", @pyromancer))
+	{
+		return;
+	}
+
+	Vec2f aimPos = blob.getAimPos();
+	Vec2f cursorPos = getDriver().getScreenPosFromWorldPos(aimPos);
+	f32 secondary_cooldown = pyromancer.secondary_cooldown / getTicksASecond();
+	if (secondary_cooldown > 0) {
+		GUI::DrawText("COOLDOWN: " + secondary_cooldown + " s", cursorPos + Vec2f(20.0f, -10.0f), SColor(255, 255, 255, 0));
+	}
 }

@@ -66,6 +66,7 @@ shared class PyromancerInfo
 
 	u8 legolas_arrows;
 	u8 legolas_time;
+	u8 secondary_cooldown;
 
 	bool grappling;
 	u16 grapple_id;

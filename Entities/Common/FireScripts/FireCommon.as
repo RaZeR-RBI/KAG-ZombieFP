@@ -68,3 +68,22 @@ bool isWaterHitter(u8 hitter)
 	       hitter == Hitters::water_stun ||
 	       hitter == Hitters::water_stun_force;
 }
+
+
+
+string randomFireTexture(int smokeRandom = 1)
+{
+	string texture;
+
+	switch (XORRandom(XORRandom(smokeRandom) == 0 ? 4 : 2))
+	{
+		case 0: texture = "Entities/Effects/Sprites/SmallFire1.png"; break;
+
+		case 1: texture = "Entities/Effects/Sprites/SmallFire2.png"; break;
+
+		case 2: texture = "Entities/Effects/Sprites/SmallSmoke1.png"; break;
+
+		case 3: texture = "Entities/Effects/Sprites/SmallSmoke2.png"; break;
+	}
+	return texture;
+}
