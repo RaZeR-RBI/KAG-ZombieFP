@@ -144,6 +144,7 @@ bool onServerProcessChat(CRules@ this, const string& in text_in, string& out tex
 					string s = tokens[1];
 					for (uint i = 2; i < tokens.length; i++)
 						s += " " + tokens[i];
+					pos.y -= 5.0f;
 					server_CreateBlob(s, team, pos);
 				}
 
