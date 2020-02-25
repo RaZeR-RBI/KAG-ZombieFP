@@ -302,7 +302,7 @@ void GoToBlob( CBrain@ this, CBlob @target )
 	}
 	if (targetDistance < 100.0f && target.hasTag("human_player") && (getGameTime() % 100 == 0) && XORRandom(10)==0) // keep distance from player
 	{
-		blob.getSprite().PlaySound("/MigrantSayHello");
+		blob.getSprite().PlaySound("/MigrantSayHello", 1.0f, 1.5f);
 		int r = XORRandom(3);
 		if (r==0)
 		blob.Chat("I'm looking for the nearest Dorm!");
