@@ -11,7 +11,7 @@ void onInit( CBlob@ this )
     this.set_u8( "blocks_pierced", 0 );
     this.set_u8( "state", 0 );
     this.server_SetTimeToDie( 2.5 );
-    this.getShape().getConsts().mapCollisions = false;
+    this.getShape().getConsts().mapCollisions = true;
 	this.getShape().getConsts().bullet = true;
 	this.getShape().getConsts().net_threshold_multiplier = 4.0f;
     LimitedAttack_setup(this);
@@ -63,9 +63,19 @@ void onTick( CBlob@ this )
     this.setAngleDegrees( -angle+180.0f );
 }
 
+void onCollision(CBlob@ this, CBlob@ blob, bool solid)
+{
+    if (!getNet().isServer()) return;
+    if (blob !is null) {
+        if (!doesCollideWithBlob(this, blob)) return;
+        this.server_Hit(blob, blob.getPosition(), this.getVelocity(), 3.0f, Hitters::stab );
+    }
+}
+
 bool doesCollideWithBlob( CBlob@ this, CBlob@ blob )	// not used by engine - collides = false
 {
-	return (this.getTeamNum() != blob.getTeamNum() || (blob.getShape().isStatic() && !blob.getShape().getConsts().platform));
+    return blob.hasTag("enemy");
+	// return (this.getTeamNum() != blob.getTeamNum() || (blob.getShape().isStatic() && !blob.getShape().getConsts().platform));
 }
 
 void Pierce( CBlob @this, f32 angle )
@@ -92,7 +102,7 @@ void Pierce( CBlob @this, f32 angle )
 		if(map.isTileSolid(overtile))
 		{
 			this.server_Die();
-			this.getSprite().PlaySound("/SmallExplosion1.ogg");
+			this.getSprite().PlaySound("/Bomb.ogg");
 			//BallistaHitMap( this, map.getTileOffset(temp), temp, initVelocity, dmg, Hitters::bomb );
 			//this.server_HitMap( temp, initVelocity, dmg, Hitters::bomb );
 			break;
@@ -111,6 +121,7 @@ void Pierce( CBlob @this, f32 angle )
 
             if (hi.blob !is null) // blob
             {
+                print("collide");
                 if ( !hi.blob.isCollidable() || !doesCollideWithBlob(this, hi.blob)) {
                     continue;
                 }

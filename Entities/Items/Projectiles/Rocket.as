@@ -69,7 +69,19 @@ void onTick( CBlob@ this )
 
 bool doesCollideWithBlob( CBlob@ this, CBlob@ blob )	// not used by engine - collides = false
 {
-	return (this.getTeamNum() != blob.getTeamNum() || (blob.getShape().isStatic() && !blob.getShape().getConsts().platform));
+    return blob.hasTag("enemy");
+	// return (this.getTeamNum() != blob.getTeamNum() || (blob.getShape().isStatic() && !blob.getShape().getConsts().platform));
+}
+
+void onCollision(CBlob@ this, CBlob@ blob, bool solid, Vec2f normal, Vec2f point1)
+{
+    if (!getNet().isServer()) return;
+    if (blob !is null) {
+        if (!doesCollideWithBlob(this, blob)) {
+            return;
+        }
+    }
+    this.server_Die();
 }
 
 void Pierce( CBlob @this, f32 angle )
@@ -96,7 +108,7 @@ void Pierce( CBlob @this, f32 angle )
 		if(map.isTileSolid(overtile))
 		{
 			this.server_Die();
-			this.getSprite().PlaySound("/SmallExplosion1.ogg");
+			this.getSprite().PlaySound("/Bomb.ogg");
 			//BallistaHitMap( this, map.getTileOffset(temp), temp, initVelocity, dmg, Hitters::bomb );
 			//this.server_HitMap( temp, initVelocity, dmg, Hitters::bomb );
 			break;
