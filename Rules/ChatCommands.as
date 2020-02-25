@@ -147,6 +147,14 @@ bool onServerProcessChat(CRules@ this, const string& in text_in, string& out tex
 					pos.y -= 5.0f;
 					server_CreateBlob(s, team, pos);
 				}
+				else if (tokens[0] == "!zombie")
+				{
+					Vec2f aimPos = blob.getAimPos();
+					string s = tokens[1];
+					for (uint i = 2; i < tokens.length; i++)
+						s += " " + tokens[i];
+					server_CreateBlob(s, -1, aimPos);
+				}
 
 				return true;
 			}
