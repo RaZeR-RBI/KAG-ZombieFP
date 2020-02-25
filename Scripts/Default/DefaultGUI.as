@@ -12,7 +12,7 @@ void LoadDefaultGUI()
         // add default icon tokens
         AddIconToken( "$NONE$", "GUI/InteractionIcons.png", Vec2f(32,32), 9 );
         AddIconToken( "$TIME$", "GUI/InteractionIcons.png", Vec2f(32,32), 0 );
-        AddIconToken( "$COIN$", "GUI/MaterialIcons.png", Vec2f(16,16), 5 );
+		AddIconToken( "$COIN$", "Sprites/coins.png", Vec2f(16, 16), 1);
         AddIconToken( "$GOLD$", "GUI/MaterialIcons.png", Vec2f(16,16), 2 );
         AddIconToken( "$TEAMS$", "GUI/MenuItems.png", Vec2f(32,32), 1 );
         AddIconToken( "$SPECTATOR$", "GUI/MenuItems.png", Vec2f(32,32), 19 );
@@ -58,15 +58,15 @@ void LoadDefaultGUI()
 		AddIconToken( "$minifarm$", "../Entities/Industry/Storage/MiniFarm.png", Vec2f(16,16), 0 );
 		AddIconToken( "$minivehicleshop$", "../Entities/Industry/VehicleShop/MiniVehicleShop.png", Vec2f(16,16), 0 );
 		AddIconToken( "$team_bridge$", "../Entities/Structures/TeamBridge/TeamBridge.png", Vec2f(8,8), 0 );
-		AddIconToken( "$chainsaw$", "../EntitiesEntities/Items/Chainsaw/ChainsawIcon.png", Vec2f(16,16), 0 );
-		AddIconToken( "$drill$", "../EntitiesEntities/Items/Drill/DrillIcon.png", Vec2f(16,16), 0 );
-		AddIconToken( "$golddrill$", "../EntitiesEntities/Items/Drill/GoldDrillIcon.png", Vec2f(16,16), 0 );
-		AddIconToken( "$bomb_satchel$", "../EntitiesEntities/Items/BombSatchel/BombSatchel.png", Vec2f(16,16), 0 );
-		AddIconToken( "$divinghelmet$", "../EntitiesEntities/Items/DivingHelmet/DivingHelmetIcon.png", Vec2f(16,16), 0 );
-		AddIconToken( "$bluelantern$", "../EntitiesEntities/Items/BlueLantern/BlueLantern.png", Vec2f(8,8), 0 );
-		AddIconToken( "$megasaw$", "../EntitiesEntities/Items/MegaSaw/MS Icon.png", Vec2f(16,16), 0 );
-		AddIconToken( "$saw$", "../EntitiesEntities/Items/Saw/SawIcon.png", Vec2f(16,16), 0 );
-		AddIconToken( "$trampoline$", "../EntitiesEntities/Items/Trampoline/TrampolineIcon.png", Vec2f(16,16), 0 );
+		AddIconToken( "$chainsaw$", "../Entities/Items/Chainsaw/ChainsawIcon.png", Vec2f(16,16), 0 );
+		AddIconToken( "$drill$", "../Entities/Items/Drill/DrillIcon.png", Vec2f(16,16), 0 );
+		AddIconToken( "$golddrill$", "../Entities/Items/Drill/GoldDrillIcon.png", Vec2f(16,16), 0 );
+		AddIconToken( "$bomb_satchel$", "../Entities/Items/BombSatchel/BombSatchel.png", Vec2f(16,16), 0 );
+		AddIconToken( "$divinghelmet$", "../Entities/Items/DivingHelmet/DivingHelmetIcon.png", Vec2f(16,16), 0 );
+		AddIconToken( "$bluelantern$", "../Entities/Items/BlueLantern/BlueLantern.png", Vec2f(8,8), 0 );
+		AddIconToken( "$megasaw$", "../Entities/Items/MegaSaw/MS Icon.png", Vec2f(16,16), 0 );
+		AddIconToken( "$saw$", "../Entities/Items/Saw/SawIcon.png", Vec2f(16,16), 0 );
+		AddIconToken( "$trampoline$", "../Entities/Items/Trampoline/TrampolineIcon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$ballista$", "../Entities/Vehicles/Ballista/BallistaIcon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$dinghy$", "../Entities/Vehicles/Boats/DinghyIcon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$longboat$", "../Entities/Vehicles/Boats/LongboatIcon.png", Vec2f(16,16), 0 );
