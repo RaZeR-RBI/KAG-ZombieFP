@@ -477,10 +477,13 @@ shared class ZombiesCore : RulesCore
                     if (r>=10 && rr<wraiteRate)
                     server_CreateBlob( "wraith", -1, sp);
                     else
-                    if (r>=10 && rr<wraiteRate)
+                    if (r>=9 && rr<wraiteRate)
                     server_CreateBlob( "greg", -1, sp);
                     else					
-                    if (r>=8)
+					if (r>=9 && dayNumber >= 5)
+					server_CreateBlob("digger", -1, sp);
+					else
+                    if (r>=7)
                     server_CreateBlob( "zombieknight", -1, sp);
                     else
 					if (r==6)
@@ -499,6 +502,10 @@ shared class ZombiesCore : RulesCore
                     server_CreateBlob( "catto", -1, sp);					
                     else					
                     server_CreateBlob( "zchicken", -1, sp);
+
+					if (dayNumber > 5) {
+					}
+
                     if (transition == 1 && (dayNumber % 5) == 0)
 					{
 						transition=0;
@@ -509,6 +516,7 @@ shared class ZombiesCore : RulesCore
 						server_CreateBlob( "phellknight", -1, sp);
 						server_CreateBlob( "pbrute", -1, sp);
 						server_CreateBlob( "pgreg", -1, sp);
+						server_CreateBlob("digger", -1, sp);
 						/*server_CreateBlob( "scrollundead", -1, sp);
 						server_CreateBlob( "scrollundead", -1, sp);*/
 						if(dayNumber >= 10){
@@ -522,6 +530,8 @@ shared class ZombiesCore : RulesCore
 							server_CreateBlob( "pbanshee", -1, sp);
 							server_CreateBlob( "pgreg", -1, sp);
 							server_CreateBlob( "pgreg", -1, sp);
+							server_CreateBlob("digger", -1, sp);
+							server_CreateBlob("digger", -1, sp);
 							/*server_CreateBlob( "scrollundead", -1, sp);
 							server_CreateBlob( "scrollundead", -1, sp);
 							server_CreateBlob( "scrollundead", -1, sp);*/
@@ -545,6 +555,9 @@ shared class ZombiesCore : RulesCore
 								server_CreateBlob( "pgreg", -1, sp);
 								server_CreateBlob( "pgreg", -1, sp);
 								server_CreateBlob( "pgreg", -1, sp);
+								server_CreateBlob("digger", -1, sp);
+								server_CreateBlob("digger", -1, sp);
+								server_CreateBlob("digger", -1, sp);
 							}
 						}
 					}

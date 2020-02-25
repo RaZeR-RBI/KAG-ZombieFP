@@ -17,7 +17,7 @@ void onTick( CBlob@ this )
 		this.SetLightRadius( 24.0f );
 		this.SetLightColor( SColor(255, 211, 121, 224 ) );
 		this.set_string("custom_explosion_sound", "OrbExplosion.ogg");
-		this.getSprite().PlaySound("OrbFireSound.ogg");
+		// this.getSprite().PlaySound("OrbFireSound.ogg");
 		this.getSprite().SetZ(1000.0f);
 		
 		//makes a stupid annoying sound

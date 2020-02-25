@@ -76,10 +76,12 @@ bool ShouldLoseTarget( CBlob@ blob, CBlob@ target )
 	bool result = false;
 	if (target.hasTag("dead"))
 		result = true;
-	else if(getDistanceBetween(target.getPosition(), blob.getPosition()) > blob.get_f32(target_searchrad_property))
-		result = true;
-	else
-	    result = !isTargetVisible(blob, target) && XORRandom(30) == 0;
+	if (!blob.hasTag("target_until_dead")) {
+		if(getDistanceBetween(target.getPosition(), blob.getPosition()) > blob.get_f32(target_searchrad_property))
+			result = true;
+		else
+			result = !isTargetVisible(blob, target) && XORRandom(30) == 0;
+	}
 
 	if (result && blob.hasTag("is_stuck"))
 		blob.Untag("is_stuck");
@@ -93,6 +95,10 @@ void FlyAround( CBrain@ this, CBlob@ blob )
 
     // get our destination
 	Vec2f destination = blob.get_Vec2f(destination_property);
+	if (destination.x == 0.0f && destination.y == 0.0f) {
+		NewDestination(blob);
+		return;
+	}
 
 	if(!blob.exists(destination_property) || getDistanceBetween(destination, blob.getPosition()) < 128 || XORRandom(30) == 0)
 	{
@@ -170,14 +176,20 @@ void FlyTo( CBlob@ blob, Vec2f destination )
 
 	if (destination.y < mypos.y)
 		blob.setKeyPressed( key_up, true );
+		/*
 	else if ((blob.isKeyPressed( key_right ) && (getMap().isTileSolid( mypos + Vec2f( 1.3f * radius, radius) * 1.0f ) || blob.getShape().vellen < 0.1f)) ||
 		     (blob.isKeyPressed( key_left )  && (getMap().isTileSolid( mypos + Vec2f(-1.3f * radius, radius) * 1.0f ) || blob.getShape().vellen < 0.1f)))
 		blob.setKeyPressed( key_up, true );
+		*/
 }
 
 void DetectForwardObstructions( CBlob@ blob )
 {
 	Vec2f mypos;
+
+	if (blob.hasTag("ignore_obstructions")) {
+		return;
+	}
 
 	bool obstructed = getMap().rayCastSolid( mypos, Vec2f(blob.isKeyPressed(key_right) ? mypos.x + 256.0f : // 512
 		                                                                                 mypos.x - 256.0f, mypos.y) );
@@ -189,6 +201,9 @@ void DetectForwardObstructions( CBlob@ blob )
 
 void StayAboveGroundLevel( CBlob@ blob )
 {
+	if (blob.hasTag("enraged")) {
+		return;
+	}
 	if(getFlyHeight(blob.getPosition().x) < blob.getPosition().y)
 	{
 		blob.setKeyPressed( key_up, true );
