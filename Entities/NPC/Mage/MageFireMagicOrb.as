@@ -1,7 +1,7 @@
 
 
 const int FIRE_FREQUENCY = 45;
-const f32 ORB_SPEED = 2.0f;
+const f32 ORB_SPEED = 5.0f;
 
 void onInit(CBlob@ this)
 {

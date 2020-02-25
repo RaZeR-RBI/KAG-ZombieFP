@@ -57,7 +57,7 @@ void onTick( CBrain@ this )
 			strategy = Strategy::retreating;
 		}	
 
-		if(distance < 150.0f)
+		if(distance < 600.0f)
 		{
 			if(!sawYou)
 			{
