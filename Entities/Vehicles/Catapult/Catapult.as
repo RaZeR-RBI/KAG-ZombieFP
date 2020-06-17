@@ -1,5 +1,4 @@
 #include "VehicleCommon.as"
-#include "Knocked.as";
 #include "MakeCrate.as";
 #include "MiniIconsInc.as";
 
@@ -218,7 +217,7 @@ void Vehicle_onFire(CBlob@ this, VehicleInfo@ v, CBlob@ bullet, const u8 _charge
 
 		if (isKnockable(bullet))
 		{
-			SetKnocked(bullet, 30);
+			setKnocked(bullet, 30);
 		}
 	}
 
