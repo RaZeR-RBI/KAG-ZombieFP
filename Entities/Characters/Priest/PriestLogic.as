@@ -1,7 +1,7 @@
 // Priest logic
 //by Diprog (edited by Frikman)
 
-#include "Knocked.as"
+#include "KnockedCommon.as"
 #include "Help.as";
 #include "Hitters2.as";
 #include "PriestCommon.as";

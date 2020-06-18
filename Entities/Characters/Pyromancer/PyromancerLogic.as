@@ -2,7 +2,7 @@
 
 #include "PyromancerCommon.as";
 #include "ThrowCommon.as";
-#include "Knocked.as";
+#include "KnockedCommon.as";
 #include "Hitters.as";
 #include "RunnerCommon.as";
 #include "ShieldCommon.as";
@@ -92,7 +92,7 @@ void ManageBow(CBlob@ this, PyromancerInfo@ pyromancer, RunnerMoveVars@ moveVars
 			if (pyromancer.legolas_arrows == PyromancerParams::legolas_arrows_count)
 			{
 				Sound::Play("/Stun", pos, 1.0f, this.getSexNum() == 0 ? 1.0f : 2.0f);
-				SetKnocked(this, 15);
+				setKnocked(this, 15);
 			}
 			else if (pressed)
 			{
@@ -278,7 +278,7 @@ void onTick(CBlob@ this)
 		return;
 	}
 
-	if (getKnocked(this) > 0)
+	if (getKnockedRemaining(this) > 0)
 	{
 		pyromancer.grappling = false;
 		pyromancer.charge_state = 0;
@@ -290,7 +290,7 @@ void onTick(CBlob@ this)
 		pyromancer.secondary_cooldown--;
 	}
 	
-	if (getKnocked(this) <= 0)
+	if (getKnockedRemaining(this) <= 0)
 	if (this.isKeyPressed(key_action2) && !this.isKeyPressed(key_action1)){
 		if (pyromancer.secondary_cooldown <= 0) {
 			if (ShootFireRune(this)) {

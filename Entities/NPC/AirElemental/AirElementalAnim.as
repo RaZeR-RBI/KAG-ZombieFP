@@ -1,5 +1,5 @@
 #include "CreatureCommon.as";
-#include "knocked.as";
+#include "KnockedCommon.as";
 
 void onTick(CSprite@ this)
 {
@@ -57,7 +57,7 @@ void onGib(CSprite@ this)
 		vel.Normalize();
 		pushed_blob.AddForce(vel * 250.0f);
 			
-		SetKnocked(pushed_blob, 15);
+		setKnocked(pushed_blob, 15);
 	}	
 	ParticleAnimated( "AirPush.png", pos, Vec2f(0,0), 0.0f, 1.0f, 2.5, 0.0f, false ); 				  
 }

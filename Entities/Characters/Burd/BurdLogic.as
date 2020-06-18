@@ -1,7 +1,7 @@
 // Burd logic
 
 #include "Hitters.as";
-#include "Knocked.as";
+#include "KnockedCommon.as";
 #include "BurdCommon.as";
 #include "ThrowCommon.as";
 #include "RunnerCommon.as";

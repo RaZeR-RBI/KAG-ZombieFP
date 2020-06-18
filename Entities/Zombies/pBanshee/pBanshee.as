@@ -3,7 +3,7 @@
 #include "pBansheeScreech.as";
 
 #include "CreatureCommon.as";
-#include "Knocked.as";
+#include "KnockedCommon.as";
 
 const s32 TIME_TO_EXPLODE = 5 * 30;
 

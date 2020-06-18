@@ -5,7 +5,7 @@
 #include "AssassinCommon.as";
 #include "RunnerCommon.as";
 #include "Hitters.as";
-#include "Knocked.as"
+#include "KnockedCommon.as"
 #include "Help.as";
 #include "Requirements.as";
 
@@ -98,7 +98,7 @@ void onSetPlayer(CBlob@ this, CPlayer@ player)
 
 void onTick(CBlob@ this)
 {
-	u8 knocked = getKnocked(this);
+	u8 knocked = getKnockedRemaining(this);
 
 	if (this.isInInventory())
 		return;
@@ -173,7 +173,7 @@ void onTick(CBlob@ this)
 		if (knight.swordTimer > KnightVars::slash_charge_limit)
 		{
 			Sound::Play("/Stun", pos, 1.0f, this.getSexNum() == 0 ? 1.0f : 2.0f);
-			SetKnocked(this, 15);
+			setKnocked(this, 15);
 		}
 
 		bool strong = (knight.swordTimer > KnightVars::slash_charge_level2);
@@ -1051,7 +1051,7 @@ void onHitBlob(CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, CBlob@
 
 	if (customData == Hitters::shield)
 	{
-		SetKnocked(hitBlob, 20);
+		setKnocked(hitBlob, 20);
 		this.getSprite().PlaySound("/Stun", 1.0f, this.getSexNum() == 0 ? 1.0f : 2.0f);
 	}
 }

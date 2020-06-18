@@ -5,7 +5,7 @@
 #include "Requirements.as"
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
-#include "Knocked.as";
+#include "KnockedCommon.as";
 
 void onTick(CSprite@ this)
 {
@@ -34,7 +34,7 @@ void onTick(CSprite@ this)
 
 	// animations
 
-	const u8 knocked = getKnocked(blob);
+	const u8 knocked = getKnockedRemaining(blob);
 	const bool action2 = blob.isKeyPressed(key_action2);
 	const bool action1 = blob.isKeyPressed(key_action1);
 

@@ -2,7 +2,7 @@
 #include "EmotesCommon.as";
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
-#include "Knocked.as";
+#include "KnockedCommon.as";
 #include "RunnerTextures.as"
 
 
@@ -57,7 +57,7 @@ void onTick( CSprite@ this )
 	const bool inair = (!blob.isOnGround() && !blob.isOnLadder());
 	bool crouch = false;
 
-	const u8 knocked = getKnocked(blob);
+	const u8 knocked = getKnockedRemaining(blob);
 	Vec2f pos = blob.getPosition();
 	Vec2f aimpos = blob.getAimPos();
 	// get the angle of aiming with mouse

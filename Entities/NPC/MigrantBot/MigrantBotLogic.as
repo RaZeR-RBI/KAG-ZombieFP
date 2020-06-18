@@ -1,13 +1,13 @@
 #include "DecayCommon.as";
 #include "HallCommon.as"
 
-#include "Knocked.as";
+#include "KnockedCommon.as";
 
 const string pickable_tag = "pickable";
 
 void onInit( CBlob@ this )
 {
-	setKnockable( this );
+	InitKnockable( this );
 	
 	this.set_f32("gib health", -3.0f);
     this.Tag("player");

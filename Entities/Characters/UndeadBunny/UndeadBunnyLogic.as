@@ -1,7 +1,7 @@
 // Builder logic
 
 #include "Hitters.as";
-#include "Knocked.as";
+#include "KnockedCommon.as";
 #include "BuilderCommon.as";
 #include "ThrowCommon.as";
 #include "RunnerCommon.as";
@@ -27,7 +27,7 @@ void onInit( CBlob@ this )
     this.set("hitdata", hitdata );
 	this.addCommandID("pickaxe");
 
-    setKnockable( this );
+    InitKnockable( this );
 	this.getShape().getConsts().net_threshold_multiplier = 0.5f;
 
 	this.getCurrentScript().runFlags |= Script::tick_not_attached;
@@ -61,7 +61,7 @@ bool canBePickedUp(CBlob@ this, CBlob@ byBlob)
 
 void onTick( CBlob@ this )
 {
-   u8 knocked = getKnocked(this);
+   u8 knocked = getKnockedRemaining(this);
 	const bool left = this.isKeyPressed( key_left );
 	const bool right = this.isKeyPressed( key_right );
 	const bool up = this.isKeyPressed( key_up );

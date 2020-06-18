@@ -1,7 +1,7 @@
 // UndeadStalker logic
 
 #include "Hitters.as"; 
-#include "Knocked.as"; 
+#include "KnockedCommon.as"; 
 #include "ThrowCommon.as";
 #include "RunnerCommon.as";
 #include "Help.as";

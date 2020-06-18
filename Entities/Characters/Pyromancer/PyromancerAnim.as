@@ -4,7 +4,7 @@
 #include "FireParticle.as";
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
-#include "Knocked.as";
+#include "KnockedCommon.as";
 #include "RunnerTextures.as";
 
 const f32 config_offset = -4.0f;
@@ -167,7 +167,7 @@ void onTick(CSprite@ this)
 	needs_shiny = false;
 	bool crouch = false;
 
-	const u8 knocked = getKnocked(blob);
+	const u8 knocked = getKnockedRemaining(blob);
 	Vec2f pos = blob.getPosition();
 	Vec2f aimpos = blob.getAimPos();
 	// get the angle of aiming with mouse

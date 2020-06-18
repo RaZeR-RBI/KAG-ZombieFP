@@ -1,7 +1,7 @@
 //Force Push
 //based on the Nova logic from Juggernaut
 #include "UndeadMysticCommon.as";
-#include "knocked.as";
+#include "KnockedCommon.as";
 
 void onInit( CBlob@ this )
 {
@@ -57,7 +57,7 @@ void ForcePush( CBlob@ blob, Vec2f aimpos)
 		vel.Normalize();
 		pushed_blob.AddForce(vel * 500.0f);
 			
-		SetKnocked(pushed_blob, 15);
+		setKnocked(pushed_blob, 15);
 	}	
 	ParticleAnimated( "ForcePush.png", aimpos, Vec2f(0,0), 0.0f, 1.0f, 2.5, 0.0f, false );          
     blob.getSprite().PlaySound("/ForcePush.ogg");

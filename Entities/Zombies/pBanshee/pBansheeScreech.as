@@ -17,7 +17,7 @@ void Screech( CBlob@ this )
 		if    (recipent !is null &&! recipent.hasTag("dead") && recipent.hasTag("player"))
 		{
             // that was loud!
-			SetKnocked( recipent, 30 + XORRandom(60) );
+			setKnocked( recipent, 30 + XORRandom(60) );
 		}
 	}
 }

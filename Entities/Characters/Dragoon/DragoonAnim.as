@@ -3,7 +3,7 @@
 #include "DragoonCommon.as";
 #include "RunnerAnimCommon.as";
 #include "RunnerCommon.as";
-#include "Knocked.as";
+#include "KnockedCommon.as";
 #include "RunnerTextures.as";
 
 const string shiny_layer = "shiny bit";
@@ -93,7 +93,7 @@ void onTick(CSprite@ this)
 		this.RemoveSpriteLayer("wings");
 	}	
 	
-	const u8 knocked = getKnocked(blob);
+	const u8 knocked = getKnockedRemaining(blob);
 
 	bool shieldState = isShieldState(knight.state);
 	bool specialShieldState = isSpecialShieldState(knight.state);

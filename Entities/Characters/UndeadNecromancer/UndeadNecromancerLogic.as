@@ -1,7 +1,7 @@
 // Necromancer logic
 // edited from FUN ctf Wizard by Diprog
 
-#include "Knocked.as"
+#include "KnockedCommon.as"
 #include "Help.as";
 #include "Hitters2.as";
 #include "UndeadNecromancerCommon.as";

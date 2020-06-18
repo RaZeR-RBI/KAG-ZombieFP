@@ -1,4 +1,4 @@
-#include "Knocked.as";
+#include "KnockedCommon.as";
 f32 SCREECH_DISTANCE = 256.0f;
 const int TELEPORT_FREQUENCY = 12 * 30; //12 secs
 const int TELEPORT_DISTANCE = 999;//getMap().tilesize;
@@ -56,7 +56,7 @@ void Screech( CBlob@ this )
 		if    (recipent !is null &&! recipent.hasTag("dead") && recipent.hasTag("survivorplayer"))
 		{
             // that was loud!
-			SetKnocked( recipent, 60 + XORRandom(60) );
+			setKnocked( recipent, 60 + XORRandom(60) );
 		}
 	}
 }

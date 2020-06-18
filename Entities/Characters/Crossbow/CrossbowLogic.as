@@ -2,7 +2,7 @@
 
 #include "CrossbowCommon.as"
 #include "ThrowCommon.as"
-#include "Knocked.as"
+#include "KnockedCommon.as"
 #include "Hitters.as"
 #include "RunnerCommon.as"
 #include "ShieldCommon.as";
@@ -169,7 +169,7 @@ void onTick(CBlob@ this)
 		return;
 	}
 
-	if (getKnocked(this) > 0)
+	if (getKnockedRemaining(this) > 0)
 	{
 		crossbow.charge_state = 0;
 		crossbow.charge_time = 10;
@@ -690,7 +690,7 @@ void onHitBlob(CBlob@ this, Vec2f worldPoint, Vec2f velocity, f32 damage, CBlob@
 		if (blockAttack(hitBlob, velocity, 0.0f))
 		{
 			this.getSprite().PlaySound("/Stun", 1.0f, this.getSexNum() == 0 ? 1.0f : 2.0f);
-			SetKnocked(this, 30);
+			setKnocked(this, 30);
 		}
 	}
 }
@@ -749,7 +749,7 @@ void onCollision(CBlob@ this, CBlob@ blob, bool solid, Vec2f normal, Vec2f point
 			Vec2f vec = blob.getPosition() - pos;
 			f32 angle = vec.Angle();
 			
-			if((aimangle+40 > angle && aimangle-40 < angle) || aimangle-40+360 < angle || aimangle+40-360 > angle)SetKnocked(blob,10);
+			if((aimangle+40 > angle && aimangle-40 < angle) || aimangle-40+360 < angle || aimangle+40-360 > angle)setKnocked(blob,10);
 			Vec2f velr = getRandomVelocity(!this.isFacingLeft() ? 50 : 90, 4.0f, 20.0f);
 			velr.y = -Maths::Abs(velr.y) + Maths::Abs(velr.x) / 2.0f - 1.5f - float(XORRandom(100)) / 100.0f;
 			ParticlePixel(point, velr, SColor(255, 255, 255, 0), true);
