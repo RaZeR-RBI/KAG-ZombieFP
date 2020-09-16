@@ -233,7 +233,7 @@ shared class ZombiesSpawns : RespawnSystem
 				if (lemo == 0) //survivors spawn point
 				{
 					CBlob@[] migrantbots;
-					getBlobsByName("migrantbot", @migrantbots);
+					getBlobsByTag("playerspawn", @migrantbots);
 					for (int n = 0; n < migrantbots.length; n++)
 					if(migrantbots[n] !is null) //check if we still have migrantbots and spawn us there
 					{
