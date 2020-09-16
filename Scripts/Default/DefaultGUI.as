@@ -131,6 +131,8 @@ void LoadDefaultGUI()
 		AddIconToken( "$shark$", "../Entities/Common/Sprites/MiniIcons.png", Vec2f(16,16), 22 );
 		AddIconToken( "$seedicon$", "../Entities/Natural/Trees/SeedIcon.png", Vec2f(16,16), 0 );
 				
+		AddIconToken("$quarters_burger$", "Quarters.png", Vec2f(24, 24), 9);
+		AddIconToken("$quarters_egg$", "Quarters.png", Vec2f(24, 24), 8);
 		
 		// classes
 

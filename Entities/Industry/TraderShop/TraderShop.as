@@ -17,7 +17,7 @@ void onInit( CBlob@ this )
 
 	// SHOP
 	this.set_Vec2f("shop offset", Vec2f(0, 0));
-	this.set_Vec2f("shop menu size", Vec2f(5,2));
+	this.set_Vec2f("shop menu size", Vec2f(5,3));
 	this.set_string("shop description", "Exchange materials and buy stuff");
 	this.set_u8("shop icon", 25);
 	
@@ -42,11 +42,15 @@ void onInit( CBlob@ this )
 		s.crate_icon = 22;
 		AddRequirement( s.requirements, "coin", "", "Coins", 200 );
 	}
-    /*{	 
+    {	 
 		ShopItem@ s = addShopItem( this, "Bison", "$bison$", "bison", "Ride it to battle!.", false, true );
 		s.crate_icon = 21;
 		AddRequirement( s.requirements, "coin", "", "Coins", 150 );
-	}*/	
+	}	
+	{
+		ShopItem@ s = addShopItem(this, "Egg - Full Health", "$quarters_egg$", "egg", "A suspiciously undercooked egg, maybe it will hatch.", false);
+		AddRequirement(s.requirements, "coin", "", "Coins", 30);
+	}
 	{
 		ShopItem@ s = addShopItem( this, "Mage", "$mage$", "mage", "Hire a Mage who will help you.", false);
 		AddRequirement( s.requirements, "coin", "", "Coins", 100 );
@@ -72,6 +76,10 @@ void onInit( CBlob@ this )
 		ShopItem@ s = addShopItem( this, "Class Book", "$whitebook$", "randomBook", "Merge 10 white pages into a random class book.", true);
 		AddRequirement( s.requirements, "blob", "whitepage", "White Pages", 10 );
 	}	
+		{
+		ShopItem@ s = addShopItem(this, "Burger - Full Health", "$quarters_burger$", "food", "A burger to go.", true);
+		AddRequirement(s.requirements, "coin", "", "Coins", 20);
+	}
 
 }
 
