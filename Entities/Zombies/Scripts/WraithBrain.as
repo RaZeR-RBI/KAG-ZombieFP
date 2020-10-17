@@ -52,7 +52,9 @@ void onTick( CBrain@ this )
 			//DetectForwardObstructions( blob );
 			
 			// should we be mad?
-            if (getDistanceBetween(target.getPosition(), blob.getPosition()) < blob.get_f32("explosive_radius"))
+			// auto-enrage after some time if we cannot get to target
+			s32 timer = blob.get_s32("auto_enrage_time") - getGameTime();
+            if (getDistanceBetween(target.getPosition(), blob.getPosition()) < blob.get_f32("explosive_radius") || timer < 0)
             {
             	// get mad
             	Enrage(blob);

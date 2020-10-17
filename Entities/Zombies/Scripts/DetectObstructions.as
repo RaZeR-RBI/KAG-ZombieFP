@@ -54,8 +54,8 @@ void DetectObstructions( CBrain@ this, CBlob@ blob)
 		blob.Tag(stuck_tag);
 		
 		// for the wraith
-		blob.Tag("enraged");
-		blob.Sync("enraged", true);
+		// blob.Tag("enraged");
+		// blob.Sync("enraged", true);
 
 		threshold = 0;
 	}

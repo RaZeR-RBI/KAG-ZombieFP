@@ -3,6 +3,7 @@
 #include "CreatureCommon.as";
 
 const s32 TIME_TO_EXPLODE = 5 * 30;
+const s32 TIME_TO_ENRAGE = 45 * 30;
 
 const int COINS_ON_DEATH = 0;
 
@@ -39,6 +40,7 @@ void onInit(CBlob@ this)
 	this.set_f32("map_damage_ratio", -1.0f);
 	this.set_bool("map_damage_raycast", true);
 	this.set_bool("explosive_teamkill", true);
+	this.set_s32("auto_enrage_time", getGameTime() + TIME_TO_ENRAGE + XORRandom(TIME_TO_ENRAGE / 2));
 	//
 
 	this.getCurrentScript().runFlags |= Script::tick_not_attached;

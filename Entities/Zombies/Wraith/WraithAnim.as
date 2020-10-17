@@ -3,7 +3,7 @@
 void onTick(CSprite@ this)
 {
 	CBlob@ blob = this.getBlob();
-	if    (blob.getBrain().getTarget() !is null || blob.hasTag("enraged"))
+	if    (blob.hasTag("enraged"))
 	{
 		if (!this.isAnimation("attack"))
 			this.SetAnimation("attack");
