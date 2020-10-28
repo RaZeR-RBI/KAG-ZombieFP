@@ -26,7 +26,7 @@ void onTick(CBlob@ this)
             if (map.isTileBedrock(tile)) {
                 continue;
             }
-            map.server_DestroyTile(tpos, 0.75f, this);
+            map.server_DestroyTile(tpos, 0.5f, this);
         }
     }
 
@@ -37,8 +37,8 @@ void onTick(CBlob@ this)
 		{
 			CBlob @b = blobsInRadius[i];
             if (b.getName() == "digger") continue;
-            bool shielded = b.hasTag("shielded");
-            this.server_Hit(b, pos, Vec2f_zero, shielded ? 0.5f : 1.0f, Hitters::stab);
+            bool half = !b.hasTag("survivorplayer") || b.hasTag("shielded");
+            this.server_Hit(b, pos, Vec2f_zero, half ? 0.5f : 1.0f, Hitters::builder);
 		}
     }
 }
