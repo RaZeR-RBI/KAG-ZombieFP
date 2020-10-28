@@ -37,7 +37,8 @@ void onTick(CBlob@ this)
 		{
 			CBlob @b = blobsInRadius[i];
             if (b.getName() == "digger") continue;
-            this.server_Hit(b, pos, Vec2f_zero, 1.0f, Hitters::stab);
+            bool shielded = b.hasTag("shielded");
+            this.server_Hit(b, pos, Vec2f_zero, shielded ? 0.5f : 1.0f, Hitters::stab);
 		}
     }
 }
