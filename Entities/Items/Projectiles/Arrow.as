@@ -340,7 +340,7 @@ bool doesCollideWithBlob(CBlob@ this, CBlob@ blob)
 			this.getShape().isStatic() ||
 			this.hasTag("collided") ||
 			//or they're dead
-			blob.hasTag("dead") ||
+			// blob.hasTag("dead") ||
 			//or they ignore us
 			blob.hasTag("ignore_arrow")
 		) {
