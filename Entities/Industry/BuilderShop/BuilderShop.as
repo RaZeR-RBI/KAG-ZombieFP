@@ -129,11 +129,15 @@ void onCommand( CBlob@ this, u8 cmd, CBitStream @params )
 			if (name == "filled_bucket")
 			{
 				CBlob@ b = server_CreateBlobNoInit("bucket");
-				b.setPosition(blob.getPosition());
-				b.server_setTeamNum(blob.getTeamNum());
+				if (b is null) {
+					return;
+				}
+				b.setPosition(pos);
 				b.Tag("_start_filled");
 				b.Init();
-				blob.server_Pickup(b);
+				if (blob !is null) {
+					blob.server_Pickup(b);
+				}
 			}
 		}
 	}
