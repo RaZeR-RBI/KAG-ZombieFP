@@ -73,8 +73,8 @@ void onInit( CBlob@ this )
 		AddRequirement( s.requirements, "coin", "", "Coins", 500 );
 	}
 	{
-		ShopItem@ s = addShopItem( this, "Class Book", "$whitebook$", "randomBook", "Merge 10 white pages into a random class book.", true);
-		AddRequirement( s.requirements, "blob", "whitepage", "White Pages", 10 );
+		ShopItem@ s = addShopItem( this, "Class Book", "$whitebook$", "randomBook", "Merge 5 white pages into a random class book.", true);
+		AddRequirement( s.requirements, "blob", "whitepage", "White Pages", 5 );
 	}	
 		{
 		ShopItem@ s = addShopItem(this, "Burger - Full Health", "$quarters_burger$", "food", "A burger to go.", true);
