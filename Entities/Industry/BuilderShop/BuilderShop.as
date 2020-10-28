@@ -24,6 +24,8 @@ void onInit(CBlob@ this)
 	this.set_Vec2f("class offset", Vec2f(-6, 0));
 	this.set_string("required class", "builder");
 
+	AddIconToken("$_buildershop_filled_bucket$", "Bucket.png", Vec2f(16, 16), 1);
+
 	{
 		ShopItem@ s = addShopItem(this, "Lantern", "$lantern$", "lantern", descriptions[9], true);
 		AddRequirement(s.requirements, "blob", "mat_wood", "Wood", COST_WOOD_LANTERN);
@@ -31,6 +33,12 @@ void onInit(CBlob@ this)
 	{
 		ShopItem@ s = addShopItem(this, "Bucket", "$bucket$", "bucket", descriptions[36], false);
 		AddRequirement(s.requirements, "blob", "mat_wood", "Wood", COST_WOOD_BUCKET);
+	}
+	{
+		ShopItem@ s = addShopItem(this, "Filled Bucket", "$_buildershop_filled_bucket$", "filled_bucket", "A wooden bucket pre-filled with water for fighting fires.", false);
+		s.spawnNothing = true;
+		AddRequirement(s.requirements, "blob", "mat_wood", "Wood", COST_WOOD_BUCKET);
+		AddRequirement(s.requirements, "coin", "", "Coins", 10);
 	}
 	{
 		ShopItem@ s = addShopItem(this, "Drill", "$drill$", "drill", descriptions[43], false);
@@ -117,6 +125,16 @@ void onCommand( CBlob@ this, u8 cmd, CBitStream @params )
 					server_MakeSeed(pos, "tree_bushy");
 				}
 			}		
+
+			if (name == "filled_bucket")
+			{
+				CBlob@ b = server_CreateBlobNoInit("bucket");
+				b.setPosition(blob.getPosition());
+				b.server_setTeamNum(blob.getTeamNum());
+				b.Tag("_start_filled");
+				b.Init();
+				blob.server_Pickup(b);
+			}
 		}
 	}
 }
