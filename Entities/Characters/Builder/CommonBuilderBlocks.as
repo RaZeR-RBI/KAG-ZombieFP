@@ -73,13 +73,13 @@ void addCommonBuilderBlocks(BuildBlock[][]@ blocks)
 		AddRequirement(b.reqs, "blob", "mat_wood", "Wood", 20);
 		blocks[0].push_back(b);
 	}
+	// {
+		// BuildBlock b(0, "trap_block", "$trap_block$", "Trap Block\nOnly enemies can pass. Also good for wheeled vehicles.");
+		// AddRequirement(b.reqs, "blob", "mat_stone", "Stone", 15);
+		// blocks[0].push_back(b);
+	// }
 	{
-		BuildBlock b(0, "trap_block", "$trap_block$", "Trap Block\nOnly enemies can pass. Also good for wheeled vehicles.");
-		AddRequirement(b.reqs, "blob", "mat_stone", "Stone", 15);
-		blocks[0].push_back(b);
-	}
-	{
-		BuildBlock b(0, "team_bridge", "$team_bridge$", "Trap Bridge\nEnemies fall through this.");
+		BuildBlock b(0, "bridge", "$bridge$", "Trap Bridge\nEnemies fall through this.");
 		AddRequirement(b.reqs, "blob", "mat_wood", "Wood", 20);
 		blocks[0].push_back(b);
 	}	
