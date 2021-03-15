@@ -34,8 +34,8 @@ void onTick( CBlob@ this )
 		if (this.hasTag("Regular Orb"))
 		{
 			this.getSprite().SetAnimation("normal");
-			this.set_f32("explosive_radius", 12.0f );
-			this.set_f32("explosive_damage", 0.75f);
+			this.set_f32("explosive_radius", 24.0f);
+			this.set_f32("explosive_damage", 2.0f);
 			this.set_f32("map_damage_radius", 0.0f);
 			this.set_f32("map_damage_ratio", -1.0f); //heck no!		
 			//this.set_u8("custom_hitter", FUNHitters::orb);			
@@ -43,20 +43,19 @@ void onTick( CBlob@ this )
 		else if (this.hasTag("Fire Orb"))
 		{
 			this.getSprite().SetAnimation("fire");
-			this.set_f32("explosive_radius", 12.0f );
-			this.set_f32("explosive_damage", 1.0f);
-			this.set_f32("map_damage_radius", 15.0f);
+			this.set_f32("explosive_radius", 24.0f);
+			this.set_f32("explosive_damage", 2.0f);
+			this.set_f32("map_damage_radius", 0.0f);
 			this.set_f32("map_damage_ratio", -1.0f); //heck no!
 			//this.set_u8("custom_hitter", FUNHitters::fire_orb);
 		}
 		else if (this.hasTag("Bomb Orb"))
 		{
-			this.getSprite().SetAnimation("bomb");	
-			this.set_f32("explosive_radius", 16.0f );
-			this.set_f32("explosive_damage", 1.5f);
-			this.set_f32("map_damage_radius", 16.0f);
-			this.set_f32("map_damage_ratio", 1.0f); //heck no!
-			this.set_bool("map_damage_raycast", true);
+			this.getSprite().SetAnimation("bomb");
+			this.set_f32("explosive_radius", 32.0f);
+			this.set_f32("explosive_damage", 3.0f);
+			this.set_f32("map_damage_radius", 0.0f);
+			this.set_f32("map_damage_ratio", -1.0f); //heck no!
 			//this.set_u8("custom_hitter", FUNHitters::bomb_orb);
 		}
 		else if (this.hasTag("Water Orb"))
@@ -128,6 +127,9 @@ bool doesCollideWithBlob( CBlob@ this, CBlob@ b )
 
 void onCollision( CBlob@ this, CBlob@ blob, bool solid, Vec2f normal)
 {
+	if (!isServer()) {
+		return;
+	}
 	if (solid){
 		if(blob !is null && blob.getTeamNum() != this.getTeamNum())
 		{
@@ -143,7 +145,7 @@ void ExplodeOrb(CBlob@ this)
 {
 	if (this.hasTag("Fire Orb")) 
 	{
-		makeFire(this, 2);
+		makeFire(this);
 	}
 	else if (this.hasTag("Water Orb"))
 	{
@@ -156,22 +158,9 @@ void ExplodeOrb(CBlob@ this)
 	this.server_Die();
 }
 
-void makeFire(CBlob@ this, int doFire)
+void makeFire(CBlob@ this)
 {
-	CMap@ map = getMap();
-	if (map !is null)	
-	{
-		for (int i = doFire; i <= (doFire * 8); i += 8)
-		{
-			map.server_setFireWorldspace(Vec2f(this.getPosition().x, this.getPosition().y + i), true);
-			map.server_setFireWorldspace(Vec2f(this.getPosition().x, this.getPosition().y - i), true);
-			map.server_setFireWorldspace(Vec2f(this.getPosition().x + i, this.getPosition().y), true);
-			map.server_setFireWorldspace(Vec2f(this.getPosition().x - i, this.getPosition().y), true);
-			map.server_setFireWorldspace(Vec2f(this.getPosition().x + i, this.getPosition().y + i), true);
-			map.server_setFireWorldspace(Vec2f(this.getPosition().x - i, this.getPosition().y - i), true);
-			map.server_setFireWorldspace(Vec2f(this.getPosition().x + i, this.getPosition().y - i), true);
-			map.server_setFireWorldspace(Vec2f(this.getPosition().x - i, this.getPosition().y + i), true);
-		}
-	}
+	Vec2f pos = this.getPosition();
+	CBlob @rune = server_CreateBlob("firerune", this.getTeamNum(), pos);
 }
 	
