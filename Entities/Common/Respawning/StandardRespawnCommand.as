@@ -44,6 +44,11 @@ void InitClasses(CBlob@ this)
 	addPlayerClass(this, "Priest", "$priest_class_icon$", "priest", "Mr. Magic Man.");
 }
 
+void buildSpawnMenu(CBlob@ this, CBlob@ caller)
+{
+	BuildRespawnMenuFor(this, caller);
+}
+
 void BuildRespawnMenuFor(CBlob@ this, CBlob @caller)
 {
 	PlayerClass[]@ classes;
