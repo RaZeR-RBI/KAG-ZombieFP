@@ -31,7 +31,7 @@ void onInit( CBlob@ this )
 		AddRequirement( s.requirements, "blob", "mat_wood", "Wood", COST_WOOD_FACTORY );
 	}
 	{
-		ShopItem@ s = addShopItem( this, "Priest's Shop", "$priestshop$", "priestshop", "Sacrifice corpses or switch to Priest here." );
+		ShopItem@ s = addShopItem( this, "Priest's Shop", "$priestshop$", "priestshop", "Switch to Priest and buy orbs here." );
 		AddRequirement( s.requirements, "blob", "mat_wood", "Wood", COST_WOOD_FACTORY );
 	}
 	{
