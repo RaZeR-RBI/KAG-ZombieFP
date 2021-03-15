@@ -79,7 +79,7 @@ void addCommonBuilderBlocks(BuildBlock[][]@ blocks)
 		blocks[0].push_back(b);
 	}
 	{
-		BuildBlock b(0, "team_bridge", "$team_bridge$", "Trap Bridge\nEnemies fall through this.");
+		BuildBlock b(0, "bridge", "$bridge$", "Trap Bridge\nEnemies fall through this.");
 		AddRequirement(b.reqs, "blob", "mat_wood", "Wood", 20);
 		blocks[0].push_back(b);
 	}	

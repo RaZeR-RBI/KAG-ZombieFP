@@ -185,7 +185,7 @@ void onCommand(CRules@ this, u8 cmd, CBitStream @params)
 					if (name.findFirst("door") != -1 ||
 					        name == "wooden_platform" ||
 					        name == "trap_block" ||
-							name == "team_bridge" ||
+							name == "bridge" ||
 							name == "fire_trap_block" ||
 							name == "explosive_trap" ||
 							name == "lamp_block" ||

@@ -57,7 +57,7 @@ void LoadDefaultGUI()
 		AddIconToken( "$minitunnel$", "../Entities/Industry/Tunnel/MiniTunnel.png", Vec2f(16,16), 0 );
 		AddIconToken( "$minifarm$", "../Entities/Industry/Storage/MiniFarm.png", Vec2f(16,16), 0 );
 		AddIconToken( "$minivehicleshop$", "../Entities/Industry/VehicleShop/MiniVehicleShop.png", Vec2f(16,16), 0 );
-		AddIconToken( "$team_bridge$", "../Entities/Structures/TeamBridge/TeamBridge.png", Vec2f(8,8), 0 );
+		AddIconToken( "$bridge$", "../Entities/Structures/Platform/Bridge.png", Vec2f(8,8), 0 );
 		AddIconToken( "$chainsaw$", "../Entities/Items/Chainsaw/ChainsawIcon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$drill$", "../Entities/Items/Drill/DrillIcon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$golddrill$", "../Entities/Items/Drill/GoldDrillIcon.png", Vec2f(16,16), 0 );
