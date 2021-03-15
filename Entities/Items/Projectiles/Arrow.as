@@ -17,6 +17,7 @@ const f32 ARROW_PUSH_FORCE = 6.0f;
 const f32 SPECIAL_HIT_SCALE = 1.0f; //special hit on food items to shoot to team-mates
 
 const s32 FIRE_IGNITE_TIME = 5;
+const f32 ARROW_DMG_MULTIPLIER = 2.0f;
 
 
 //Arrow logic
@@ -244,7 +245,7 @@ void onCollision(CBlob@ this, CBlob@ blob, bool solid, Vec2f normal, Vec2f point
 		f32 dmg = 0.0f;
 		if (blob.getTeamNum() != this.getTeamNum())
 		{
-			dmg = getArrowDamage(this, vellen);
+			dmg = getArrowDamage(this, vellen) * ARROW_DMG_MULTIPLIER;
 		}
 
 		if (arrowType == ArrowType::water)
