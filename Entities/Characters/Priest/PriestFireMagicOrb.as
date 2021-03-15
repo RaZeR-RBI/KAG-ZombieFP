@@ -14,6 +14,10 @@ void onTick( CBlob@ this )
 	// {
 	u8 count = this.get_u8("magic fire count");
 	const u32 gametime = getGameTime();
+	bool in_menu = getHUD().hasButtons();
+	if (this.isKeyPressed(key_use) || this.isKeyPressed(key_inventory) || in_menu) {
+		return; // we're switching orbs or interacting with menus
+	}
 		
 	if(count < ORB_LIMIT){
 		if(this.isKeyPressed( key_action1 )) {
