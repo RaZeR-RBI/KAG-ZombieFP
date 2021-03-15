@@ -16,7 +16,7 @@ void onInit(CBlob@ this)
 
 	// SHOP
 	this.set_Vec2f("shop offset", Vec2f_zero);
-	this.set_Vec2f("shop menu size", Vec2f(4, 2));
+	this.set_Vec2f("shop menu size", Vec2f(4, 3));
 	this.set_string("shop description", "Craft Items");
 	this.set_u8("shop icon", 25);
 
@@ -54,7 +54,7 @@ void onInit(CBlob@ this)
 	{
 		ShopItem@ s = addShopItem(this, "Trampoline", "$trampoline$", "trampoline", descriptions[30], false);
 		AddRequirement(s.requirements, "blob", "mat_wood", "Wood", COST_WOOD_TRAMPOLINE);
-		AddRequirement( s.requirements, "blob", "mat_gold", "Gold", 30 );
+		AddRequirement( s.requirements, "coin", "", "Coins", 30 );
 	}
 	{
 		ShopItem@ s = addShopItem(this, "Saw", "$saw$", "saw", descriptions[12], false);
