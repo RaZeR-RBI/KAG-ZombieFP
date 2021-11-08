@@ -24,14 +24,14 @@ void onInit( CBlob@ this )
 
 	
 	{
-		ShopItem@ s = addShopItem( this, "Mounted Repeater Crossbow", "$mounted_bow$", "mounted_bow", "Ideal for roofs and boats.", false, true );
+		ShopItem@ s = addShopItem( this, "Mounted Bow", "$mounted_bow$", "mounted_bow", "Ideal for roofs and boats.", false, true );
 		AddRequirement( s.requirements, "coin", "", "Coins", 100 );
 		s.crate_icon = 6;
 	}
 
 	{
-		ShopItem@ s = addShopItem(this, "Repeater Arrows", "$mat_rarrows$", "mat_rarrows", "Arrows for the Mounted Bow.", true);
-		AddRequirement(s.requirements, "coin", "", "Coins", 50 );
+		ShopItem@ s = addShopItem(this, "Arrows", "$mat_arrows$", "mat_arrows", "Arrows for the Mounted Bow and archers.", true);
+		AddRequirement(s.requirements, "coin", "", "Coins", 15 );
 	}	
 	
 	{
