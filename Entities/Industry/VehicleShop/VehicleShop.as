@@ -6,6 +6,7 @@
 #include "Descriptions.as";
 #include "WARCosts.as";
 #include "CheckSpam.as";
+#include "TeamIconToken.as"
 
 const s32 cost_catapult = 80;
 const s32 cost_ballista = 200;
@@ -14,8 +15,8 @@ const s32 cost_longboat = 50;
 const s32 cost_warboat = 250;
 const s32 cost_glider = 500;
 const s32 cost_zeppelin = 1000;
-const s32 cost_ballista_ammo = 100;
-const s32 cost_ballista_ammo_upgrade_gold = 100;
+const s32 cost_ballista_ammo = 75;
+const s32 cost_ballista_bomb_ammo = 100;
 
 void onInit(CBlob@ this)
 {
@@ -28,19 +29,24 @@ void onInit(CBlob@ this)
 
 	// SHOP
 	this.set_Vec2f("shop offset", Vec2f(0, 0));
-	this.set_Vec2f("shop menu size", Vec2f(3, 5));
+	this.set_Vec2f("shop menu size", Vec2f(4, 5));
 	this.set_string("shop description", "Buy Vehicles");
 	this.set_u8("shop icon", 25);
 
+	int team_num = this.getTeamNum();
+
 	{
-		ShopItem@ s = addShopItem(this, "Catapult", "$catapult$", "catapult", "$catapult$\n\n\n" + descriptions[5], false, true);
+		string cata_icon = getTeamIcon("catapult", "VehicleIcons.png", team_num, Vec2f(32, 32), 0);
+		ShopItem@ s = addShopItem(this, "Catapult", cata_icon, "catapult", "$catapult$\n\n\n" + descriptions[5], false, true);
 		s.crate_icon = 4;
 		AddRequirement(s.requirements, "coin", "", "Coins", 100);
 	}
 	{
-		ShopItem@ s = addShopItem(this, "Ballista", "$ballista$", "ballista", "$ballista$\n\n\n" + descriptions[6], false, true);
+		string ballista_icon = getTeamIcon("ballista", "VehicleIcons.png", team_num, Vec2f(32, 32), 1);
+		ShopItem@ s = addShopItem(this, "Ballista", ballista_icon, "ballista", "$ballista$\n\n\n" + descriptions[6], false, true);
 		s.crate_icon = 5;
 		AddRequirement(s.requirements, "coin", "", "Coins", 200);
+		AddRequirement(s.requirements, "blob", "mat_gold", "Gold", 50);
 	}
 	{
 		ShopItem@ s = addShopItem(this, "Tank", "$tank$", "tank", "$tank$\n\n\n" + "Packs quite a punch.", false, true);
@@ -53,33 +59,32 @@ void onInit(CBlob@ this)
 		s.crate_icon = 19;
 	}
 	{
-		ShopItem@ s = addShopItem(this, "Ballon", "$balloon$", "balloon", "A small ballon, fitting for 2 people.", false, true);
+		ShopItem@ s = addShopItem(this, "Balloon", "$balloon$", "balloon", "A small ballon, fitting for 2 people.", false, true);
 		AddRequirement(s.requirements, "coin", "", "Coins", 400);
 		s.crate_icon = 7;
-	}	
+	}
 	{
 		ShopItem@ s = addShopItem(this, "Glider", "$glider$", "glider", "A small and fast airship.", false, true);
 		AddRequirement(s.requirements, "coin", "", "Coins", 200);
 		s.crate_icon = 3;
 	}
 	{
-		ShopItem@ s = addShopItem(this, "Raft", "$raft$", "raft", "$raft$\n\n\n" + "You're a big boat.", false, true);
-		AddRequirement(s.requirements, "coin", "", "Coins", 25);
-		s.crate_icon = 0;
-	}	
-	{
-		ShopItem@ s = addShopItem(this, "Dinghy", "$dinghy$", "dinghy", "$dinghy$\n\n\n" + descriptions[10], false, true);
+		string dinghy_icon = getTeamIcon("dinghy", "VehicleIcons.png", team_num, Vec2f(32, 32), 5);
+		ShopItem@ s = addShopItem(this, "Dinghy", dinghy_icon, "dinghy", "$dinghy$\n\n\n" + descriptions[10], false, true);
 		AddRequirement(s.requirements, "coin", "", "Coins", 50);
 		s.crate_icon = 10;
 	}
 	{
-		ShopItem@ s = addShopItem(this, "Longboat", "$longboat$", "longboat", "$longboat$\n\n\n" + descriptions[33], false, true);
+		string longboat_icon = getTeamIcon("longboat", "VehicleIcons.png", team_num, Vec2f(32, 32), 4);
+		ShopItem@ s = addShopItem(this, "Longboat", longboat_icon, "longboat", "$longboat$\n\n\n" + descriptions[33], false, true);
 		AddRequirement(s.requirements, "coin", "", "Coins", 100);
 		s.crate_icon = 1;
 	}
 	{
-		ShopItem@ s = addShopItem(this, "War Boat", "$warboat$", "warboat", "$warboat$\n\n\n" + descriptions[37], false, true);
+		string warboat_icon = getTeamIcon("warboat", "VehicleIcons.png", team_num, Vec2f(32, 32), 2);
+		ShopItem@ s = addShopItem(this, "War Boat", warboat_icon, "warboat", "$warboat$\n\n\n" + descriptions[37], false, true);
 		AddRequirement(s.requirements, "coin", "", "Coins", 200);
+		AddRequirement(s.requirements, "blob", "mat_gold", "Gold", 50);
 		s.crate_icon = 2;
 	}
 	{
@@ -88,10 +93,12 @@ void onInit(CBlob@ this)
 		AddRequirement(s.requirements, "coin", "", "Coins", cost_ballista_ammo);
 	}
 	{
-		ShopItem@ s = addShopItem(this, "Bomb Bolt Upgrade", "$vehicleshop_upgradebolts$", "upgradebolts", "For Ballista\nTurns its piercing bolts into a shaped explosive charge.", false);
-		s.spawnNothing = true;
-		AddRequirement(s.requirements, "blob", "mat_gold", "Gold", cost_ballista_ammo_upgrade_gold);
-		AddRequirement(s.requirements, "not tech", "bomb ammo", "Bomb Bolt", 1);
+		ShopItem@ s = addShopItem(this, "Ballista Shells", "$mat_bomb_bolts$", "mat_bomb_bolts", "$mat_bomb_bolts$\n\n\n" + Descriptions::ballista_bomb_ammo, false, false);
+		s.crate_icon = 5;
+		s.customButton = true;
+		s.buttonwidth = 2;
+		s.buttonheight = 1;
+		AddRequirement(s.requirements, "coin", "", "Coins", cost_ballista_bomb_ammo);
 	}
 }
 
