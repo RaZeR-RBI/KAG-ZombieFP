@@ -1,4 +1,4 @@
-#include "VehicleCommon2.as"
+#include "VehicleCommon.as"
 
 // Zeppelin logic
 
@@ -77,11 +77,11 @@ void onInit(CBlob@ this )
 	//set custom minimap icon
 	this.SetMinimapOutsideBehaviour(CBlob::minimap_snap);
 	this.SetMinimapVars("GUI/MiniIcons.png", 19, Vec2f(16,16));
-	this.SetMinimapRenderAlways(true);	
-	
+	this.SetMinimapRenderAlways(true);
+
 	if (getNet().isServer())// && hasTech( this, "mounted bow"))
 	{
-		CBlob@ bow = server_CreateBlob( "mounted_cannon" );	
+		CBlob@ bow = server_CreateBlob( "mounted_bow" );
 		if (bow !is null)
 		{
 			bow.server_setTeamNum(this.getTeamNum());
@@ -91,7 +91,7 @@ void onInit(CBlob@ this )
 	}
 	if (getNet().isServer())// && hasTech( this, "mounted bow"))
 	{
-		CBlob@ bow = server_CreateBlob( "mounted_crossbow" );	
+		CBlob@ bow = server_CreateBlob( "mounted_bow" );
 		if (bow !is null)
 		{
 			bow.server_setTeamNum(this.getTeamNum());

@@ -1,4 +1,4 @@
-#include "VehicleCom.as"				
+#include "VehicleCommon.as"				
 #include "ClassSelectMenu.as";
 #include "StandardRespawnCommand.as";
 //#include "Requirements_Tech.as";
