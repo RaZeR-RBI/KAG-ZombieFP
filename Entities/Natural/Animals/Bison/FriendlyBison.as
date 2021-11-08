@@ -33,3 +33,10 @@ void onTick(CBlob@ this)
 		}
 	}
 }
+
+bool doesCollideWithBlob( CBlob@ this, CBlob@ blob )
+{
+	if (blob.hasTag("dead") || blob.hasTag("player") || blob.hasTag("survivorplayer") || blob.hasTag("survivorbuilding"))
+		return false;
+	return true;
+}
