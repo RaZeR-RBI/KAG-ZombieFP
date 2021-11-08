@@ -17,11 +17,12 @@ void onInit(CBlob@ this)
 	{
 		return;
 	}
-	Vehicle_SetupWeapon(this, v,
+	Vehicle_AddAmmo(this, v,
 	                    60, // fire delay (ticks)
 	                    1, // fire bullets amount
-	                    Vec2f(-6.0f, 2.0f), // fire position offset
+	                    1, // fire cost
 	                    "mat_rockets", // bullet ammo config name
+	                    "Rockets",
 	                    "rocket", // bullet config name
 	                    "BazookaShoot", // fire sound
 	                    "EmptyFire" // empty fire sound
@@ -128,7 +129,7 @@ void onTick(CBlob@ this)
 			bool facing_left = sprite.isFacingLeft();
 			f32 rotation = angle * (facing_left ? -1 : 1);
 
-			if (v.loaded_ammo > 0)
+			if (v.getCurrentAmmo().loaded_ammo > 0)
 			{
 				arm.animation.frame = 1;
 			}

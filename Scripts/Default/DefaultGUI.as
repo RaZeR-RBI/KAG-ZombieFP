@@ -83,10 +83,8 @@ void LoadDefaultGUI()
 		AddIconToken( "$mounted_crossbow$", "../Entities/Items/MountedCrossbow/MCbIcon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$mounted_bazooka$", "../Entities/Items/MountedBazooka/MBz Icon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$mounted_cannon$", "../Entities/Items/MountedCannon/MCnIcon.png", Vec2f(16,16), 0 );
-		AddIconToken( "$mat_crossbolts$", "../Entities/Materials/CrossboltIcon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$mat_rarrows$", "../Entities/Materials/rArrowIcon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$mat_rockets$", "../Entities/Materials/rocketicon.png", Vec2f(16,16), 0 );
-		AddIconToken( "$mat_cannonballs$", "../Entities/Materials/cannonballicon.png", Vec2f(16,16), 0 );
 		AddIconToken( "$mat_orbs$", "../Entities/Materials/Orbs_mat.png", Vec2f(16,16), 12 );
 		AddIconToken( "$mat_fireorbs$", "../Entities/Materials/Orbs_mat.png", Vec2f(16,16), 13 );
 		AddIconToken( "$mat_bomborbs$", "../Entities/Materials/Orbs_mat.png", Vec2f(16,16), 14 );

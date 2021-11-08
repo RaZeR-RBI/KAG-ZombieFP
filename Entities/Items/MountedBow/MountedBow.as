@@ -1,4 +1,5 @@
 #include "VehicleCommon.as"
+#include "GenericButtonCommon.as"
 
 // Mounted Bow logic
 
@@ -17,15 +18,18 @@ void onInit(CBlob@ this)
 	{
 		return;
 	}
-	Vehicle_SetupWeapon(this, v,
-	                    10, // fire delay (ticks)
+
+	Vehicle_AddAmmo(this, v,
+	                    10, // fire delay (ticks) // ZF: make bow shoot faster
 	                    1, // fire bullets amount
-	                    Vec2f(-6.0f, 2.0f), // fire position offset
-	                    "mat_rarrows", // bullet ammo config name
+	                    1, // fire cost
+	                    "mat_arrows", // bullet ammo config name
+	                    "Arrows", // name for ammo selection
 	                    "arrow", // bullet config name
-	                    "FireCrossbow", // fire sound
+	                    "BowFire", // fire sound
 	                    "EmptyFire" // empty fire sound
 	                   );
+
 	v.charge = 400;
 	// init arm + cage sprites
 	CSprite@ sprite = this.getSprite();
@@ -52,7 +56,9 @@ void onInit(CBlob@ this)
 	}
 
 	this.getShape().SetRotationsAllowed(false);
-	this.set_string("autograb blob", "mat_rarrows");
+
+	string[] autograb_blobs = {"mat_arrows"};
+	this.set("autograb blobs", autograb_blobs);
 
 	sprite.SetZ(-10.0f);
 
@@ -61,7 +67,7 @@ void onInit(CBlob@ this)
 	// auto-load on creation
 	if (getNet().isServer())
 	{
-		CBlob@ ammo = server_CreateBlob("mat_rarrows");
+		CBlob@ ammo = server_CreateBlob("mat_arrows");
 		if (ammo !is null)
 		{
 			if (!this.server_PutInInventory(ammo))
@@ -128,7 +134,7 @@ void onTick(CBlob@ this)
 			bool facing_left = sprite.isFacingLeft();
 			f32 rotation = angle * (facing_left ? -1 : 1);
 
-			if (v.loaded_ammo > 0)
+			if (v.getCurrentAmmo().loaded_ammo > 0)
 			{
 				arm.animation.frame = 1;
 			}
@@ -166,6 +172,8 @@ void onHealthChange(CBlob@ this, f32 oldHealth)
 
 void GetButtonsFor(CBlob@ this, CBlob@ caller)
 {
+	if (!canSeeButtons(this, caller)) return;
+
 	if (!Vehicle_AddFlipButton(this, caller))
 	{
 		Vehicle_AddLoadAmmoButton(this, caller);
@@ -187,13 +195,20 @@ void Vehicle_onFire(CBlob@ this, VehicleInfo@ v, CBlob@ bullet, const u8 _unused
 		Vec2f vel = Vec2f(charge / 16.0f * (this.isFacingLeft() ? -1 : 1), 0.0f).RotateBy(angle);
 		bullet.setVelocity(vel);
 		Vec2f offset = arm_offset;
+
+		//(handle facing correctly)
+		offset.x *= (this.isFacingLeft() ? 1 : -1);
 		offset.RotateBy(angle);
-		bullet.setPosition(this.getPosition() + offset * 1.1f);
+		offset.Normalize();
+		//offset set length from shoot pos
+		offset *= 3.5f;
+		bullet.setPosition(this.getPosition() + offset);
+
 		// set much higher drag than archer arrow
-		bullet.getShape().setDrag(bullet.getShape().getDrag() * 1.0f);
+		bullet.getShape().setDrag(bullet.getShape().getDrag() * 2.0f);
 
 		bullet.server_SetTimeToDie(-1);   // override lock
-		bullet.server_SetTimeToDie(5.0f);
+		bullet.server_SetTimeToDie(5.0f); // ZF: make arrows stay longer
 		bullet.Tag("bow arrow");
 	}
 }

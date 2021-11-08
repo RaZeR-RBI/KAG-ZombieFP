@@ -83,14 +83,6 @@ void onInit(CBlob@ this)
 		s.crate_icon = 2;
 	}
 	{
-		ShopItem@ s = addShopItem(this, "Cannon Balls", "$mat_cannonballs$", "mat_cannonballs", "Ammo for your cannons.", true);
-		AddRequirement(s.requirements, "coin", "", "Coins", 100 );
-	}	
-	{
-		ShopItem@ s = addShopItem(this, "CrossBolts", "$mat_crossbolts$", "mat_crossbolts", "Bolts for your crossbows.", true);
-		AddRequirement(s.requirements, "coin", "", "Coins", 50 );
-	}		
-	{
 		ShopItem@ s = addShopItem(this, "Ballista Ammo", "$mat_bolts$", "mat_bolts", "$mat_bolts$\n\n\n" + descriptions[15], false, false);
 		s.crate_icon = 5;
 		AddRequirement(s.requirements, "coin", "", "Coins", cost_ballista_ammo);

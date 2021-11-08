@@ -17,11 +17,6 @@ void onInit(CBlob@ this)
 		max = 60;
 		set = true;
 	}
-	else if (name == "mat_crossbolts")
-	{
-		max = 250;
-		set = true;
-	}
 	else if (name == "mat_rarrows")
 	{
 		max = 150;
@@ -32,11 +27,6 @@ void onInit(CBlob@ this)
 		max = 50;
 		set = true;
 	}
-	else if (name == "mat_cannonballs")
-	{
-		max = 80;
-		set = true;
-	}	
 	else if (name == "mat_firearrows")
 	{
 		max = 15;
