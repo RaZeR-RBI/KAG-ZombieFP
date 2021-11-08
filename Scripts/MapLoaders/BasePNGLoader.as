@@ -4,133 +4,133 @@
 #include "CustomBlocks.as"
 
 // tiles
-const SColor color_tile_ground(255, 132, 71, 21);
-const SColor color_tile_ground_back(255, 59, 20, 6);
-const SColor color_tile_stone(255, 139, 104, 73);
-const SColor color_tile_thickstone(255, 66, 72, 75);
-const SColor color_tile_bedrock(255, 45, 52, 45);
-const SColor color_tile_gold(255, 254, 165, 61);
-const SColor color_tile_castle(255, 100, 113, 96);
-const SColor color_tile_castle_back(255, 49, 52, 18);
-const SColor color_tile_castle_moss(255, 100, 143, 96);
-const SColor color_tile_castle_back_moss(255, 49, 82, 18);
-const SColor color_tile_ladder(255, 43, 21, 9);
-const SColor color_tile_ladder_ground(255, 66, 36, 11);
-const SColor color_tile_ladder_castle(255, 67, 47, 17);
-const SColor color_tile_ladder_wood(255, 69, 57, 17);
-const SColor color_tile_grass(255, 100, 155, 13);
-const SColor color_tile_wood(255, 196, 135, 21);
-const SColor color_tile_wood_back(255, 85, 42, 17);
-const SColor color_water_air(255, 46, 129, 166);
-const SColor color_water_backdirt(255, 51, 85, 102);
-const SColor color_tile_sand(0xffecd590);
+const SColor png_color_tile_ground(255, 132, 71, 21);
+const SColor png_color_tile_ground_back(255, 59, 20, 6);
+const SColor png_color_tile_stone(255, 139, 104, 73);
+const SColor png_color_tile_thickstone(255, 66, 72, 75);
+const SColor png_color_tile_bedrock(255, 45, 52, 45);
+const SColor png_color_tile_gold(255, 254, 165, 61);
+const SColor png_color_tile_castle(255, 100, 113, 96);
+const SColor png_color_tile_castle_back(255, 49, 52, 18);
+const SColor png_color_tile_castle_moss(255, 100, 143, 96);
+const SColor png_color_tile_castle_back_moss(255, 49, 82, 18);
+const SColor png_color_tile_ladder(255, 43, 21, 9);
+const SColor png_color_tile_ladder_ground(255, 66, 36, 11);
+const SColor png_color_tile_ladder_castle(255, 67, 47, 17);
+const SColor png_color_tile_ladder_wood(255, 69, 57, 17);
+const SColor png_color_tile_grass(255, 100, 155, 13);
+const SColor png_color_tile_wood(255, 196, 135, 21);
+const SColor png_color_tile_wood_back(255, 85, 42, 17);
+const SColor png_color_water_air(255, 46, 129, 166);
+const SColor png_color_water_backdirt(255, 51, 85, 102);
+const SColor png_color_tile_sand(0xffecd590);
 // objects
 //aedificiis et officinas
-const SColor color_zombie_main_spawn(0xff05ff05);
-const SColor color_zombie_portal(0xff710d71);
-const SColor color_zombie_statue(255, 61, 16, 123);
-const SColor color_grave(0xffe900f0);
-const SColor color_blue_main_spawn(255, 0, 255, 255);
-const SColor color_red_main_spawn(255, 255, 0, 0);
-const SColor color_green_main_spawn(0xff9dca22);
-const SColor color_purple_main_spawn(0xffd379e0);
-const SColor color_orange_main_spawn(0xffcd6120);
-const SColor color_aqua_main_spawn(0xff2ee5a2);
-const SColor color_teal_main_spawn(0xff5f84ec);
-const SColor color_gray_main_spawn(0xffc4cfa1);
-const SColor color_blue_spawn(255, 0, 200, 200);
-const SColor color_red_spawn(255, 200, 0, 0);
-const SColor color_knight_shop(0xffffbebe);
-const SColor color_builder_shop(0xffbeffbe);
-const SColor color_archer_shop(0xffffffbe);
-const SColor color_boat_shop(0xffc8beff);
-const SColor color_vehicle_shop(0xffe6e6e6);
-const SColor color_quarters(0xfff0beff);
-const SColor color_storage_noteam(255, 217, 255, 239);
-const SColor color_barracks_noteam(255, 217, 218, 255);
-const SColor color_factory_noteam(255, 255, 217, 237);
-const SColor color_tunnel_blue(255, 220, 217, 254);
-const SColor color_tunnel_red(255, 243, 217, 220);
-const SColor color_tunnel_noteam(255, 243, 217, 254);
-const SColor color_kitchen(255, 255, 217, 217);
-const SColor color_nursery(255, 217, 255, 223);
-const SColor color_research(255, 225, 225, 225);
-const SColor color_workbench(255, 0, 255, 0);
-const SColor color_campfire(0xffFBE28B);
-const SColor color_saw(0xffCAA482);
+const SColor png_color_zombie_main_spawn(0xff05ff05);
+const SColor png_color_zombie_portal(0xff710d71);
+const SColor png_color_zombie_statue(255, 61, 16, 123);
+const SColor png_color_grave(0xffe900f0);
+const SColor png_color_blue_main_spawn(255, 0, 255, 255);
+const SColor png_color_red_main_spawn(255, 255, 0, 0);
+const SColor png_color_green_main_spawn(0xff9dca22);
+const SColor png_color_purple_main_spawn(0xffd379e0);
+const SColor png_color_orange_main_spawn(0xffcd6120);
+const SColor png_color_aqua_main_spawn(0xff2ee5a2);
+const SColor png_color_teal_main_spawn(0xff5f84ec);
+const SColor png_color_gray_main_spawn(0xffc4cfa1);
+const SColor png_color_blue_spawn(255, 0, 200, 200);
+const SColor png_color_red_spawn(255, 200, 0, 0);
+const SColor png_color_knight_shop(0xffffbebe);
+const SColor png_color_builder_shop(0xffbeffbe);
+const SColor png_color_archer_shop(0xffffffbe);
+const SColor png_color_boat_shop(0xffc8beff);
+const SColor png_color_vehicle_shop(0xffe6e6e6);
+const SColor png_color_quarters(0xfff0beff);
+const SColor png_color_storage_noteam(255, 217, 255, 239);
+const SColor png_color_barracks_noteam(255, 217, 218, 255);
+const SColor png_color_factory_noteam(255, 255, 217, 237);
+const SColor png_color_tunnel_blue(255, 220, 217, 254);
+const SColor png_color_tunnel_red(255, 243, 217, 220);
+const SColor png_color_tunnel_noteam(255, 243, 217, 254);
+const SColor png_color_kitchen(255, 255, 217, 217);
+const SColor png_color_nursery(255, 217, 255, 223);
+const SColor png_color_research(255, 225, 225, 225);
+const SColor png_color_workbench(255, 0, 255, 0);
+const SColor png_color_campfire(0xffFBE28B);
+const SColor png_color_saw(0xffCAA482);
 //flora
-const SColor color_tree(255, 13, 103, 34);
-const SColor color_bush(0xff5b7e18);
-const SColor color_grain(0xffa2b716);
-const SColor color_flowers(255, 255, 102, 255);
-const SColor color_log(255, 160, 140, 40);
+const SColor png_color_tree(255, 13, 103, 34);
+const SColor png_color_bush(0xff5b7e18);
+const SColor png_color_grain(0xffa2b716);
+const SColor png_color_flowers(255, 255, 102, 255);
+const SColor png_color_log(255, 160, 140, 40);
 //fauna
-const SColor color_shark(0xff2cafde);
-const SColor color_fish(0xff79a8a3);
-const SColor color_bison(0xffb75646);
+const SColor png_color_shark(0xff2cafde);
+const SColor png_color_fish(0xff79a8a3);
+const SColor png_color_bison(0xffb75646);
 //ostia et pedicas
-const SColor color_ladder(0xff42240B);
-const SColor color_platform(0xffff9239);
-const SColor color_door_1(255, 26, 78, 131);
-const SColor color_door_2(255, 148, 27, 27);
-const SColor color_door_noteam(255, 148, 148, 148);
-const SColor color_stone_door_blue(255, 80, 90, 160);
-const SColor color_stone_door_red(255, 160, 90, 80);
-const SColor color_stone_door_noteam(255, 160, 160, 160);
-const SColor color_trapblock_blue(0xff384C8E);
-const SColor color_trapblock_red(0xff8E3844);
-const SColor color_trapblock_noteam(255, 100, 100, 100);
-const SColor color_spikes(255, 180, 42, 17);
-const SColor color_spikes_ground(255, 180, 97, 17);
-const SColor color_spikes_castle(255, 180, 42, 94);
-const SColor color_spikes_wood(255, 200, 42, 94);
+const SColor png_color_ladder(0xff42240B);
+const SColor png_color_platform(0xffff9239);
+const SColor png_color_door_1(255, 26, 78, 131);
+const SColor png_color_door_2(255, 148, 27, 27);
+const SColor png_color_door_noteam(255, 148, 148, 148);
+const SColor png_color_stone_door_blue(255, 80, 90, 160);
+const SColor png_color_stone_door_red(255, 160, 90, 80);
+const SColor png_color_stone_door_noteam(255, 160, 160, 160);
+const SColor png_color_trapblock_blue(0xff384C8E);
+const SColor png_color_trapblock_red(0xff8E3844);
+const SColor png_color_trapblock_noteam(255, 100, 100, 100);
+const SColor png_color_spikes(255, 180, 42, 17);
+const SColor png_color_spikes_ground(255, 180, 97, 17);
+const SColor png_color_spikes_castle(255, 180, 42, 94);
+const SColor png_color_spikes_wood(255, 200, 42, 94);
 //objecta
-const SColor color_drill(255, 210, 120, 0);
-const SColor color_trampoline(255, 187, 59, 253);
-const SColor color_lantern(0xfff1e7b1);
-const SColor color_crate(255, 102, 0, 0);
-const SColor color_bucket(255, 255, 220, 120);
-const SColor color_sponge(255, 220, 0, 180);
-const SColor color_steak(0xffdb8867);
-const SColor color_burger(0xffcd8e4b);
+const SColor png_color_drill(255, 210, 120, 0);
+const SColor png_color_trampoline(255, 187, 59, 253);
+const SColor png_color_lantern(0xfff1e7b1);
+const SColor png_color_crate(255, 102, 0, 0);
+const SColor png_color_bucket(255, 255, 220, 120);
+const SColor png_color_sponge(255, 220, 0, 180);
+const SColor png_color_steak(0xffdb8867);
+const SColor png_color_burger(0xffcd8e4b);
 //vehiculis
-const SColor color_catapult(0xff67E5A5);
-const SColor color_ballista(255, 100, 210, 160);
-const SColor color_mountedbow(0xff38E8B8);
-const SColor color_longboat(255, 0, 51, 255);
-const SColor color_warboat(255, 50, 140, 255);
-const SColor color_dinghy(0xffc99ef6);
-const SColor color_raft(255, 70, 110, 155);
-const SColor color_airship(255, 255, 175, 0);
-const SColor color_bomber(255, 255, 190, 0);
+const SColor png_color_catapult(0xff67E5A5);
+const SColor png_color_ballista(255, 100, 210, 160);
+const SColor png_color_mountedbow(0xff38E8B8);
+const SColor png_color_longboat(255, 0, 51, 255);
+const SColor png_color_warboat(255, 50, 140, 255);
+const SColor png_color_dinghy(0xffc99ef6);
+const SColor png_color_raft(255, 70, 110, 155);
+const SColor png_color_airship(255, 255, 175, 0);
+const SColor png_color_bomber(255, 255, 190, 0);
 //arma
-const SColor color_bombs(0xfffbf157);
-const SColor color_waterbombs(255, 210, 200, 120);
-const SColor color_arrows(255, 200, 210, 70);
-const SColor color_bombarrows(255, 200, 180, 10);
-const SColor color_waterarrows(255, 200, 160, 10);
-const SColor color_firearrows(255, 230, 210, 70);
-const SColor color_bolts(255, 230, 230, 170);
-const SColor color_blue_mine(255, 90, 100, 255);
-const SColor color_red_mine(255, 255, 160, 90);
-const SColor color_mine_noteam(0xffd74bff);
-const SColor color_boulder(0xffA19585);
-const SColor color_satchel(255, 170, 100, 0);
-const SColor color_keg(255, 220, 60, 60);
+const SColor png_color_bombs(0xfffbf157);
+const SColor png_color_waterbombs(255, 210, 200, 120);
+const SColor png_color_arrows(255, 200, 210, 70);
+const SColor png_color_bombarrows(255, 200, 180, 10);
+const SColor png_color_waterarrows(255, 200, 160, 10);
+const SColor png_color_firearrows(255, 230, 210, 70);
+const SColor png_color_bolts(255, 230, 230, 170);
+const SColor png_color_blue_mine(255, 90, 100, 255);
+const SColor png_color_red_mine(255, 255, 160, 90);
+const SColor png_color_mine_noteam(0xffd74bff);
+const SColor png_color_boulder(0xffA19585);
+const SColor png_color_satchel(255, 170, 100, 0);
+const SColor png_color_keg(255, 220, 60, 60);
 //ligna, lapides, et aurum
-const SColor color_gold(255, 255, 240, 160);
-const SColor color_stone(255, 190, 190, 175);
-const SColor color_wood(255, 200, 190, 140);
+const SColor png_color_gold(255, 255, 240, 160);
+const SColor png_color_stone(255, 190, 190, 175);
+const SColor png_color_wood(255, 200, 190, 140);
 //bellus domina et odiosas magus
-const SColor color_princess(0xffFB87FF);
-const SColor color_necromancer(0xff9E3ABB);
-const SColor color_necromancer_teleport(0xff621A83);
+const SColor png_color_princess(0xffFB87FF);
+const SColor png_color_necromancer(0xff9E3ABB);
+const SColor png_color_necromancer_teleport(0xff621A83);
 
 // stultus futuit
-const SColor color_mook_knight(0xffff5f19);
-const SColor color_mook_archer(0xff19ffb6);
-const SColor color_mook_spawner(0xff3E0100);
-const SColor color_mook_spawner_10(0xff56062C);
+const SColor png_color_mook_knight(0xffff5f19);
+const SColor png_color_mook_archer(0xff19ffb6);
+const SColor png_color_mook_spawner(0xff3E0100);
+const SColor png_color_mook_spawner_10(0xff56062C);
 
 enum WAROffset {
 	autotile_offset = 0,
@@ -213,215 +213,215 @@ class PNGLoader
 	void handlePixel(SColor pixel, int offset)
 	{
 		//TILES
-	if (pixel == color_tile_ground) {
+	if (pixel == png_color_tile_ground) {
 			map.SetTile(offset, CMap::tile_ground );
 		}
-		else if (pixel == color_tile_ground_back) {
+		else if (pixel == png_color_tile_ground_back) {
 			map.SetTile(offset, CMap::tile_ground_back );
 		}
-		else if (pixel == color_tile_stone) {
+		else if (pixel == png_color_tile_stone) {
 			map.SetTile(offset, CMap::tile_stone );
 		}
-		else if (pixel == color_tile_thickstone) {
+		else if (pixel == png_color_tile_thickstone) {
 			map.SetTile(offset, CMap::tile_thickstone );
 		}
-		else if (pixel == color_tile_bedrock) {
+		else if (pixel == png_color_tile_bedrock) {
 			map.SetTile(offset, CMap::tile_bedrock );
 		}
-		else if (pixel == color_tile_gold) {
+		else if (pixel == png_color_tile_gold) {
 			map.SetTile(offset, CMap::tile_gold );
 		}
-		else if (pixel == color_tile_castle) {
+		else if (pixel == png_color_tile_castle) {
 			map.SetTile(offset, CMap::tile_castle );
 		}
-		else if (pixel == color_tile_castle_back) {
+		else if (pixel == png_color_tile_castle_back) {
 			map.SetTile(offset, CMap::tile_castle_back );
 		}
-		else if (pixel == color_tile_castle_moss) {
+		else if (pixel == png_color_tile_castle_moss) {
 			map.SetTile(offset, CMap::tile_castle_moss );
 		}
-		else if (pixel == color_tile_castle_back_moss) {
+		else if (pixel == png_color_tile_castle_back_moss) {
 			map.SetTile(offset, CMap::tile_castle_back_moss );
 		}
-		else if (pixel == color_tile_wood) {
+		else if (pixel == png_color_tile_wood) {
 			map.SetTile(offset, CMap::tile_wood );
 		}
-		else if (pixel == color_tile_wood_back) {
+		else if (pixel == png_color_tile_wood_back) {
 			map.SetTile(offset, CMap::tile_wood_back );
 		}
-		else if (pixel == color_tile_grass) {
+		else if (pixel == png_color_tile_grass) {
 			map.SetTile(offset, CMap::tile_grass + map_random.NextRanged(3) );
 		}
-		else if (pixel == color_water_air) {
+		else if (pixel == png_color_water_air) {
 			map.server_setFloodWaterOffset( offset, true );
 		}
-		else if (pixel == color_water_backdirt)
+		else if (pixel == png_color_water_backdirt)
 		{
 			map.server_setFloodWaterOffset( offset, true );
 			map.SetTile( offset, CMap::tile_ground_back );
 		}
 		//BUILDINGS
-		else if (pixel == color_zombie_main_spawn) {
+		else if (pixel == png_color_zombie_main_spawn) {
 			AddMarker( map, offset, "zombie spawn" );
 		}		
-		else if (pixel == color_zombie_portal) {
+		else if (pixel == png_color_zombie_portal) {
 			AddMarker( map, offset, "zombie portal" );
 		}		
-		else if (pixel == color_grave) {
+		else if (pixel == png_color_grave) {
 			AddMarker( map, offset, "grave" );
 		}										
-		else if (pixel == color_blue_main_spawn) {
+		else if (pixel == png_color_blue_main_spawn) {
 			AddMarker( map, offset, "blue main spawn" );
 		}
-		else if (pixel == color_red_main_spawn) {
+		else if (pixel == png_color_red_main_spawn) {
 			AddMarker( map, offset, "red main spawn" );
 		}
-		else if (pixel == color_green_main_spawn) {
+		else if (pixel == png_color_green_main_spawn) {
 			AddMarker( map, offset, "green main spawn" );
 		}
-		else if (pixel == color_purple_main_spawn) {
+		else if (pixel == png_color_purple_main_spawn) {
 			AddMarker( map, offset, "purple main spawn" );
 		}
-		else if (pixel == color_orange_main_spawn) {
+		else if (pixel == png_color_orange_main_spawn) {
 			AddMarker( map, offset, "orange main spawn" );
 		}
-		else if (pixel == color_aqua_main_spawn) {
+		else if (pixel == png_color_aqua_main_spawn) {
 			AddMarker( map, offset, "aqua main spawn" );
 		}	
-		else if (pixel == color_blue_spawn) {
+		else if (pixel == png_color_blue_spawn) {
 			AddMarker( map, offset, "blue spawn" );
 		}
-		else if (pixel == color_red_spawn) {
+		else if (pixel == png_color_red_spawn) {
 			AddMarker( map, offset, "red spawn" );
 		}
-		else if (pixel == color_knight_shop)
+		else if (pixel == png_color_knight_shop)
 		{
 			spawnBlob( map, "knightshop", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_zombie_statue) {
+		else if (pixel == png_color_zombie_statue) {
 			spawnBlob( map, "undeadstatue", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}		
-		else if (pixel == color_builder_shop)
+		else if (pixel == png_color_builder_shop)
 		{
 			spawnBlob( map, "buildershop", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_archer_shop)
+		else if (pixel == png_color_archer_shop)
 		{
 			spawnBlob( map, "archershop", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_boat_shop)
+		else if (pixel == png_color_boat_shop)
 		{
 			spawnBlob( map, "boatshop", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_vehicle_shop)
+		else if (pixel == png_color_vehicle_shop)
 		{
 			spawnBlob( map, "vehicleshop", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_quarters)
+		else if (pixel == png_color_quarters)
 		{
 			spawnBlob( map, "quarters", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_storage_noteam)
+		else if (pixel == png_color_storage_noteam)
 		{
 			spawnBlob( map, "storage", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_barracks_noteam)
+		else if (pixel == png_color_barracks_noteam)
 		{
 			spawnBlob( map, "barracks", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_factory_noteam)
+		else if (pixel == png_color_factory_noteam)
 		{
 			spawnBlob( map, "factory", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_tunnel_blue)
+		else if (pixel == png_color_tunnel_blue)
 		{
 			spawnBlob( map, "tunnel", offset, 0);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_tunnel_red)
+		else if (pixel == png_color_tunnel_red)
 		{
 			spawnBlob( map, "tunnel", offset, 1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_tunnel_noteam)
+		else if (pixel == png_color_tunnel_noteam)
 		{
 			spawnBlob( map, "tunnel", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_kitchen)
+		else if (pixel == png_color_kitchen)
 		{
 			spawnBlob( map, "kitchen", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_nursery)
+		else if (pixel == png_color_nursery)
 		{
 			spawnBlob( map, "nursery", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_research)
+		else if (pixel == png_color_research)
 		{
 			spawnBlob( map, "research", offset, 255);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_workbench)
+		else if (pixel == png_color_workbench)
 		{
 			spawnBlob( map, "workbench", offset, -1, true);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_campfire)
+		else if (pixel == png_color_campfire)
 		{
 			spawnBlob( map, "fireplace", offset, -1, true, Vec2f(0.0f, -4.0f));
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_saw)
+		else if (pixel == png_color_saw)
 		{
 			spawnBlob( map, "saw", offset, -1, false);
 			offsets[autotile_offset].push_back( offset );
 		}
 		// TREES
-		else if (pixel.getRed() == color_tree.getRed() && pixel.getBlue() == color_tree.getBlue() && pixel.getGreen() >= color_tree.getGreen() && pixel.getGreen() <= color_tree.getGreen()+3)
+		else if (pixel.getRed() == png_color_tree.getRed() && pixel.getBlue() == png_color_tree.getBlue() && pixel.getGreen() >= png_color_tree.getGreen() && pixel.getGreen() <= png_color_tree.getGreen()+3)
 		{
 			offsets[tree_offset].push_back( offset );
 			offsets[autotile_offset].push_back( offset );
 		}
 		//NATURE
-		else if (pixel == color_bush)
+		else if (pixel == png_color_bush)
 		{
 			offsets[bush_offset].push_back( offset );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_grain)
+		else if (pixel == png_color_grain)
 		{
 			offsets[grain_offset].push_back( offset );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_flowers)
+		else if (pixel == png_color_flowers)
 		{
 			spawnBlob( map, "flowers", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_log)
+		else if (pixel == png_color_log)
 		{
 			spawnBlob( map, "log", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
 		//ANIMALS
-		else if (pixel == color_shark)
+		else if (pixel == png_color_shark)
 		{
 			spawnBlob( map, "shark", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_fish)
+		else if (pixel == png_color_fish)
 		{
 			CBlob@ fishy = spawnBlob( map, "fishy", offset, -1);
 			if (fishy !is null)
@@ -430,93 +430,93 @@ class PNGLoader
 			}
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_bison)
+		else if (pixel == png_color_bison)
 		{
 			spawnBlob( map, "bison", offset, -1, false);
 			offsets[autotile_offset].push_back( offset );
 		}
 		//DOORS AND TRAPS
-		else if (pixel == color_ladder || pixel == color_tile_ladder_ground ||
-				 pixel == color_tile_ladder_castle || pixel == color_tile_ladder_wood)
+		else if (pixel == png_color_ladder || pixel == png_color_tile_ladder_ground ||
+				 pixel == png_color_tile_ladder_castle || pixel == png_color_tile_ladder_wood)
 		{
 			offsets[ladder_offset].push_back( offset );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_platform)
+		else if (pixel == png_color_platform)
 		{
 			spawnBlob( map, "wooden_platform", offset, 255, true );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_door_1)
+		else if (pixel == png_color_door_1)
 		{
 			spawnBlob( map, "wooden_door", offset, 0, true );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_door_2)
+		else if (pixel == png_color_door_2)
 		{
 			spawnBlob( map, "wooden_door", offset, 1, true );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_door_noteam)
+		else if (pixel == png_color_door_noteam)
 		{
 			spawnBlob( map, "wooden_door", offset, 255, true );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_stone_door_blue)
+		else if (pixel == png_color_stone_door_blue)
 		{
 			spawnBlob( map, "stone_door", offset, 0, true );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_stone_door_red)
+		else if (pixel == png_color_stone_door_red)
 		{
 			spawnBlob( map, "stone_door", offset, 1, true );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_stone_door_noteam)
+		else if (pixel == png_color_stone_door_noteam)
 		{
 			spawnBlob( map, "stone_door", offset, 255, true );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_trapblock_blue)
+		else if (pixel == png_color_trapblock_blue)
 		{
 			spawnBlob( map, "trap_block", offset, 0, true);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_trapblock_red)
+		else if (pixel == png_color_trapblock_red)
 		{
 			spawnBlob( map, "trap_block", offset, 1, true);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_trapblock_noteam)
+		else if (pixel == png_color_trapblock_noteam)
 		{
 			spawnBlob( map, "trap_block", offset, 255, true );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_spikes) {
+		else if (pixel == png_color_spikes) {
 			offsets[spike_offset].push_back( offset );
 		}
-		else if (pixel == color_spikes_ground)
+		else if (pixel == png_color_spikes_ground)
 		{
 			map.SetTile(offset, CMap::tile_ground_back );
 			offsets[spike_offset].push_back( offset );
 		}
-		else if (pixel == color_spikes_castle)
+		else if (pixel == png_color_spikes_castle)
 		{
 			map.SetTile(offset, CMap::tile_castle_back );
 			offsets[spike_offset].push_back( offset );
 		}
-		else if (pixel == color_spikes_wood)
+		else if (pixel == png_color_spikes_wood)
 		{
 			map.SetTile(offset, CMap::tile_wood_back );
 			offsets[spike_offset].push_back( offset );
 		}
 		//ITEMS
-		else if (pixel == color_drill)
+		else if (pixel == png_color_drill)
 		{
 			spawnBlob( map, "drill", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_trampoline)
+		else if (pixel == png_color_trampoline)
 		{
 			CBlob@ trampoline = server_CreateBlobNoInit( "trampoline" );
 
@@ -531,189 +531,189 @@ class PNGLoader
 
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_lantern)
+		else if (pixel == png_color_lantern)
 		{
 			spawnBlob( map, "lantern", offset, -1, true);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_crate)
+		else if (pixel == png_color_crate)
 		{
 			spawnBlob( map, "crate", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_bucket)
+		else if (pixel == png_color_bucket)
 		{
 			spawnBlob( map, "bucket", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_sponge)
+		else if (pixel == png_color_sponge)
 		{
 			spawnBlob( map, "sponge", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_steak)
+		else if (pixel == png_color_steak)
 		{
 			spawnBlob( map, "steak", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_burger)
+		else if (pixel == png_color_burger)
 		{
 			spawnBlob( map, "food", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
 		//VEHICLES
-		else if (pixel == color_catapult)
+		else if (pixel == png_color_catapult)
 		{
 			spawnVehicle( map, "catapult", offset, 0); // HACK: team for Challenge
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_ballista)
+		else if (pixel == png_color_ballista)
 		{
 			spawnVehicle( map, "ballista", offset);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_mountedbow)
+		else if (pixel == png_color_mountedbow)
 		{
 			spawnBlob( map, "mounted_bow", offset, -1, true, Vec2f(0.0f, 4.0f));
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_longboat)
+		else if (pixel == png_color_longboat)
 		{
 			spawnVehicle( map, "longboat", offset);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_warboat)
+		else if (pixel == png_color_warboat)
 		{
 			spawnVehicle( map, "warboat", offset);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_dinghy)
+		else if (pixel == png_color_dinghy)
 		{
 			spawnVehicle( map, "dinghy", offset);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_raft)
+		else if (pixel == png_color_raft)
 		{
 			spawnVehicle( map, "raft", offset);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_airship)
+		else if (pixel == png_color_airship)
 		{
 			spawnVehicle( map, "airship", offset);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_bomber)
+		else if (pixel == png_color_bomber)
 		{
 			spawnVehicle( map, "bomber", offset);
 			offsets[autotile_offset].push_back( offset );
 		}
 		//WEAPONS
-		else if (pixel == color_bombs)
+		else if (pixel == png_color_bombs)
 		{
 			AddMarker( map, offset, "mat_bombs" );
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_waterbombs)
+		else if (pixel == png_color_waterbombs)
 		{
 			spawnBlob( map, "mat_waterbombs", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_arrows)
+		else if (pixel == png_color_arrows)
 		{
 			spawnBlob( map, "mat_arrows", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_bombarrows)
+		else if (pixel == png_color_bombarrows)
 		{
 			spawnBlob( map, "mat_bombarrows", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_waterarrows)
+		else if (pixel == png_color_waterarrows)
 		{
 			spawnBlob( map, "mat_waterarrows", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_firearrows)
+		else if (pixel == png_color_firearrows)
 		{
 			spawnBlob( map, "mat_firearrows", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_bolts)
+		else if (pixel == png_color_bolts)
 		{
 			spawnBlob( map, "mat_bolts", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_blue_mine)
+		else if (pixel == png_color_blue_mine)
 		{
 			spawnBlob( map, "mine", offset, 0);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_red_mine)
+		else if (pixel == png_color_red_mine)
 		{
 			spawnBlob( map, "mine", offset, 1);
 			offsets[autotile_offset].push_back( offset );
 		}
-	else if (pixel == color_mine_noteam)
+	else if (pixel == png_color_mine_noteam)
 		{
 			spawnBlob( map, "mine", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_boulder)
+		else if (pixel == png_color_boulder)
 		{
 			spawnBlob( map, "boulder", offset, -1, false, Vec2f(8.0f, -8.0f));
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_satchel)
+		else if (pixel == png_color_satchel)
 		{
 			spawnBlob( map, "satchel", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_keg)
+		else if (pixel == png_color_keg)
 		{
 			spawnBlob( map, "keg", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
 		//RESOURCES
-		else if (pixel == color_gold)
+		else if (pixel == png_color_gold)
 		{
 			spawnBlob( map, "mat_gold", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_stone)
+		else if (pixel == png_color_stone)
 		{
 			spawnBlob( map, "mat_stone", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_wood)
+		else if (pixel == png_color_wood)
 		{
 			spawnBlob( map, "mat_wood", offset, -1);
 			offsets[autotile_offset].push_back( offset );
 		}
 		//FAIR LADY AND NASTY MAGE
-		else if (pixel == color_princess)
+		else if (pixel == png_color_princess)
 		{
 			spawnBlob( map, "princess", offset, 6, false);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_necromancer)
+		else if (pixel == png_color_necromancer)
 		{
 			spawnBlob( map, "necromancer", offset, 3, false);
 			offsets[autotile_offset].push_back( offset );
 		}
-		else if (pixel == color_necromancer_teleport) {
+		else if (pixel == png_color_necromancer_teleport) {
 			AddMarker( map, offset, "necromancer teleport" );
 		}
 		//HERP DERP HENRIES
-		else if (pixel == color_mook_knight) {
+		else if (pixel == png_color_mook_knight) {
 			AddMarker( map, offset, "mook knight" );
 		}
-		else if (pixel == color_mook_archer) {
+		else if (pixel == png_color_mook_archer) {
 			AddMarker( map, offset, "mook archer" );
 		}
-		else if (pixel == color_mook_spawner) {
+		else if (pixel == png_color_mook_spawner) {
 			AddMarker( map, offset, "mook spawner" );
 		}
-		else if (pixel == color_mook_spawner_10) {
+		else if (pixel == png_color_mook_spawner_10) {
 			AddMarker( map, offset, "mook spawner 10" );
 		}
 	}
