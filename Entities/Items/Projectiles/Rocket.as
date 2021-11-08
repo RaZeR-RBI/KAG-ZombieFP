@@ -26,6 +26,7 @@ void onInit( CBlob@ this )
 	this.getSprite().SetFrame( 0 );
 
 	this.getSprite().SetFacingLeft( !this.getSprite().isFacingLeft() ); // ?  it turns sides when setting frame
+	this.SetMapEdgeFlags(CBlob::map_collide_left | CBlob::map_collide_right);
 }
 void makeSteamParticle(CBlob@ this, const Vec2f vel, const string filename = "SmallExplosion1")
 {
@@ -69,7 +70,7 @@ void onTick( CBlob@ this )
 
 bool doesCollideWithBlob( CBlob@ this, CBlob@ blob )	// not used by engine - collides = false
 {
-    return blob.hasTag("enemy");
+    return blob.hasTag("enemy") || blob.hasTag("door");
 	// return (this.getTeamNum() != blob.getTeamNum() || (blob.getShape().isStatic() && !blob.getShape().getConsts().platform));
 }
 
