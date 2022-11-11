@@ -60,7 +60,7 @@ void spawnParticles( CBlob@ this )
 				continue;
 			}
 			Vec2f pos = Vec2f(center.x + x, center.y + y);
-			ParticleAnimated( randomFireTexture(), pos, Vec2f(0,0), 0.0f, 1.0f, 2, 0.0f, true );
+			makeFireParticle(pos);
 		}
 	}
 }
